@@ -7,4 +7,8 @@ body {
       color: inherit;
       text-decoration: none;
     }
+
+    .header {
+        @include flexCenter(column);
+    }
 }
