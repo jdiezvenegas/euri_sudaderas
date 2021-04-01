@@ -1,8 +1,8 @@
 import { useQuery, gql } from "@apollo/client";
 
-import ProductItem from './ProductItem'
+import ProductItem from './item';
 
-const QUERY = gql`
+const GET_PRODUCTS = gql`
     query ($first: Int, $after: String) {
         products(first: $first, after: $after, where: { supportedTypesOnly: true }) {
             edges {
@@ -42,7 +42,7 @@ const QUERY = gql`
 `;
 
 export default function ProductList() {
-    const { data, loading, error } = useQuery(QUERY);
+    const { data, loading, error } = useQuery(GET_PRODUCTS);
 
     if (loading) {
         return <h2>Loading...</h2>;

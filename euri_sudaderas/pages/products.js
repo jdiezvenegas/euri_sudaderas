@@ -1,6 +1,6 @@
 import Head from "next/head";
 import ClientOnly from "../domain/hooks/client-only";
-import ProductList from "../components/ProductList";
+import ProductList from "../components/products/list";
 
 export default function ClientSide() {
   return (
