@@ -2,7 +2,7 @@ import Head from "next/head";
 import ClientOnly from "../domain/hooks/client-only";
 import ProductList from "../components/products/list";
 
-export default function ClientSide() {
+export default function ProductsPage() {
   return (
     <div>
       <Head>

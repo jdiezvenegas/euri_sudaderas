@@ -1,10 +1,12 @@
 import parse, { domToReact } from 'html-react-parser';
+import Link from 'next/link';
 
 import ProductImage from './image';
 import ProductPrice from './price';
 
 export default function ProductItem({ data }) {
     const {
+        id,
         name,
         onSale,
         regularPrice,
@@ -19,28 +21,30 @@ export default function ProductItem({ data }) {
     return(
         <div>
             <h3>{name}</h3>
-            <ProductImage data={{image}} />
-            <a className="product-name" href={link}>
-                {onSale && (
-                    <>
-                        <span className="badge">On Sale</span>
-                        <br />
-                    </>
-                )}
-                {name}
-                {description && (
-                    <>
-                        <br />
-                        {parse(description, {
-                            replace({ name, children }) {
-                                if (name === 'p') {
-                                    return <small>{domToReact(children)}</small>;
+            <Link className="product-name" href={'/product/'+id.toString()}>
+                <a>
+                    <ProductImage data={{image}} />
+                    {onSale && (
+                        <>
+                            <span className="badge">On Sale</span>
+                            <br />
+                        </>
+                    )}
+                    {name}
+                    {description && (
+                        <>
+                            <br />
+                            {parse(description, {
+                                replace({ name, children }) {
+                                    if (name === 'p') {
+                                        return <small>{domToReact(children)}</small>;
+                                    }
                                 }
-                            }
-                        })}
-                    </>
-                )}
-            </a>
+                            })}
+                        </>
+                    )}
+                </a>
+            </Link>
             <ProductPrice
                 type={type}
                 onSale={onSale}
