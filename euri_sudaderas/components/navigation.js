@@ -13,7 +13,7 @@ export default function Navigation() {
         />
       </div>
       <div className="nav-item">
-        <Link href="/productos">Productos</Link>
+        <Link href="/products">Productos</Link>
       </div>
       <div className="nav-item">
         <Link href="/about">Conócenos</Link>

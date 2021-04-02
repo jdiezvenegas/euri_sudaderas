@@ -1,0 +1,29 @@
+.products-list-container {
+    @include flexCenter(row);
+    flex-wrap: wrap;
+
+    .product-item-container {
+        margin: 10px;
+        max-width: 500px;
+        @include flexCenter(column);
+        width: 30%;
+        min-width: 150px;
+
+        .name-and-sale-container {
+            margin: 0;
+            width: 100%;
+            @include flexCenter(row);
+            justify-content: space-between;
+        }
+
+        button {
+            border-radius: 10px;
+            background-color: $commonMint;
+            height: 30px;
+            font-family: inherit;
+            font-weight: lighter;
+            border-color: $white500;
+            border-image: none;
+        }
+    }
+}

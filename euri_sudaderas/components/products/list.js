@@ -1,64 +1,70 @@
 import { useQuery, gql } from "@apollo/client";
 
-import ProductItem from './item';
+import ProductItem from "./item";
 
 const GET_PRODUCTS = gql`
-    query ($first: Int, $after: String) {
-        products(first: $first, after: $after, where: { supportedTypesOnly: true }) {
-            edges {
-                cursor
-                node {
-                    databaseId
-                    id
-                    slug
-                    name
-                    type
-                    shortDescription
-                    image {
-                        id
-                        sourceUrl
-                        altText
-                    }
-                    galleryImages {
-                        nodes {
-                            id
-                            sourceUrl
-                            altText
-                        }
-                    }
-                    ... on SimpleProduct {
-                        onSale
-                        price
-                        regularPrice
-                    }
-                    ... on VariableProduct {
-                        onSale
-                        price
-                        regularPrice
-                    }
-                }
+  query($first: Int, $after: String) {
+    products(
+      first: $first
+      after: $after
+      where: { supportedTypesOnly: true }
+    ) {
+      edges {
+        cursor
+        node {
+          databaseId
+          id
+          slug
+          name
+          type
+          shortDescription
+          image {
+            id
+            sourceUrl
+            altText
+          }
+          galleryImages {
+            nodes {
+              id
+              sourceUrl
+              altText
             }
+          }
+          ... on SimpleProduct {
+            onSale
+            price
+            regularPrice
+          }
+          ... on VariableProduct {
+            onSale
+            price
+            regularPrice
+          }
         }
+      }
     }
+  }
 `;
 
 export default function ProductList() {
-    const { data, loading, error } = useQuery(GET_PRODUCTS);
+  const { data, loading, error } = useQuery(GET_PRODUCTS);
 
-    if (loading) {
-        return <h2>Loading...</h2>;
-    }
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
 
-    if (error) {
-        console.error(error);
-        return null;
-    }
+  if (error) {
+    console.error(error);
+    return null;
+  }
 
-    const products = data.products.edges || [];
+  const products = data.products.edges || [];
 
-    return (
-        <div>
-            {products.map(({ cursor, node, }) => <ProductItem key={cursor} data={node} /> )}
-        </div>
-    );
+  return (
+    <div className="products-list-container">
+      {products.map(({ cursor, node }) => (
+        <ProductItem key={cursor} data={node} />
+      ))}
+    </div>
+  );
 }
