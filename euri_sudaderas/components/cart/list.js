@@ -1,47 +1,50 @@
 import { useQuery, gql } from "@apollo/client";
 
-import ProductItem from '../products/item';
+import CartItem from './item';
 
 const GET_CART = gql`
     query {
         cart(recalculateTotals: true) {
             total
             contents {
-                nodes {
-                    product {
-                        node {
-                            databaseId
-                            id
-                            slug
-                            name
-                            type
-                            shortDescription
-                            image {
+                edges {
+                    cursor
+                    node {
+                        product {
+                            node {
+                                databaseId
                                 id
-                                sourceUrl
-                                altText
-                            }
-                            galleryImages {
-                                nodes {
+                                slug
+                                name
+                                type
+                                shortDescription
+                                image {
                                     id
                                     sourceUrl
                                     altText
                                 }
-                            }
-                            ... on SimpleProduct {
-                                onSale
-                                price
-                                regularPrice
-                            }
-                            ... on VariableProduct {
-                                onSale
-                                price
-                                regularPrice
+                                galleryImages {
+                                    nodes {
+                                        id
+                                        sourceUrl
+                                        altText
+                                    }
+                                }
+                                ... on SimpleProduct {
+                                    onSale
+                                    price
+                                    regularPrice
+                                }
+                                ... on VariableProduct {
+                                    onSale
+                                    price
+                                    regularPrice
+                                }
                             }
                         }
+                        total
+                        quantity
                     }
-                    total
-                    quantity
                 }
             }
         }
@@ -49,9 +52,8 @@ const GET_CART = gql`
   
 `;
 
-export default function ProductList() {
+export default function CartList() {
     const { data, loading, error } = useQuery(GET_CART);
-    console.log(data)
 
     if (loading) {
         return <h2>Loading...</h2>;
@@ -66,8 +68,9 @@ export default function ProductList() {
 
     return (
         <div>
-            {cart.contents.nodes.map(({ product, quantity, total }) => <div><ProductItem data={product.node} /> <span>{quantity} - {total}</span></div> )}
-            <span>{cart.total}</span>
+            {cart.contents.edges.map(({ cursor, node }) => <CartItem key={cursor} data={node} /> )}
+            <h3>Total price:</h3>
+            <span key={'total'}>{cart.total}</span>
         </div>
     );
 }
