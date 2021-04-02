@@ -11,7 +11,6 @@ export default function Home() {
       <main>
         <Navigation />
         <h1 className="header">Welcome to eurielec.</h1>
-        <img scr="/logo_euri.png" />
       </main>
     </div>
   );
