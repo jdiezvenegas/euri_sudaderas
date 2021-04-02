@@ -1,7 +1,7 @@
 import Head from "next/head";
 import ClientOnly from "../domain/hooks/client-only";
 import CartList from "../components/cart/list";
-import GoToCartButton from "../components/cart/goto";
+import Layout from "../components/layout";
 
 export default function CartPage() {
   return (
@@ -11,15 +11,14 @@ export default function CartPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <GoToCartButton />
+      <Layout>
         <h1>
           Cart:
         </h1>
         <ClientOnly>
           <CartList />
         </ClientOnly>
-      </main>
+      </Layout>
     </div>
   );
 }

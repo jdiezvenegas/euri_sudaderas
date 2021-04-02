@@ -4,6 +4,8 @@ import Image from "next/image";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
+import GoToCartButton from './cart/goto';
+
 export default function Navigation() {
   return (
     <div className="nav-container">
@@ -48,6 +50,13 @@ export default function Navigation() {
               <Link href="/faq">
                 <Nav.Link as="a" href="/faq">
                   FAQ
+                </Nav.Link>
+              </Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link href="/faq">
+                <Nav.Link as="a" href="/faq">
+                  <GoToCartButton />
                 </Nav.Link>
               </Link>
             </Nav.Item>
