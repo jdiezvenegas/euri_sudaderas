@@ -13,8 +13,7 @@ export default function AddToCartButton({ id }) {
 
     const handleAddToCart = (event) => {
         event.preventDefault();
-        // the mutate function also doesn't return a promise
-        console.log(id)
+
         addToCart({ variables: { id: id } });
     }
 

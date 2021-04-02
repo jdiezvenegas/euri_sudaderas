@@ -1,5 +1,8 @@
 import { useQuery, gql } from "@apollo/client";
+import { useContext } from 'react';
+
 import Link from "next/link";
+
 import { FaShoppingBasket } from "react-icons/fa";
 
 const GET_CART_ITEM_COUNT = gql`
@@ -13,6 +16,7 @@ const GET_CART_ITEM_COUNT = gql`
 `;
 
 export default function GoToCartButton() {
+  console.log(useContext())
   const { data, loading, error } = useQuery(GET_CART_ITEM_COUNT);
   return (
     <div className="cart-goto">
