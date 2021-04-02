@@ -1,11 +1,33 @@
 .nav-container {
-    @include flexCenter(row);
-    height: 10%;
-    min-height: 30px;
-    max-height: 50px;
-
     .nav-logo {
-        visibility: visible;
+        // visibility: visible;
         height: 100%;
     }
+
+    // This is for phone sized displays
+    @media only screen and (min-width: 990px) {
+    .navbar-collapse {
+        font-size: 1.3em;
+        justify-content: space-around;
+
+        .collapse {
+            .show {
+                background-color: $desaturatedMint;
+            }
+        }
+
+            .navbar-nav {
+                width: 100%;
+                @include flexCenter(row);
+            }
+
+            .nav-item {
+                //margin-left: 40px;
+                //margin-right: 40px;
+            }
+        }
+
+
+    }
+
 }

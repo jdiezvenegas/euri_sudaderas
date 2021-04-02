@@ -9,13 +9,13 @@ import GoToCartButton from './cart/goto';
 export default function Navigation() {
   return (
     <div className="nav-container">
-      <Navbar expand="lg" fixed="top">
+      <Navbar expand="lg">
         <Link href="/">
           <Navbar.Brand as="a" href="/">
             <div className="nav-logo">
               <Image
                 src="/logo_euri.png"
-                alt="Picture of the author"
+                alt="Logo de eurielec"
                 height={40}
                 width={172}
               />

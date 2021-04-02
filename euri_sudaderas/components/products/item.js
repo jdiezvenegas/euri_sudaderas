@@ -58,7 +58,7 @@ export default function ProductItem({ data }) {
         price={price}
         regularPrice={regularPrice}
       />
-      <AddToCartButton id={databaseId} className="product-button" />
+      <AddToCartButton id={databaseId} />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import Link from "next/link";
 
-import { FaShoppingBasket } from "react-icons/fa";
+import { RiShoppingBasket2Line } from "react-icons/ri";
 
 const GET_CART_ITEM_COUNT = gql`
   query {
@@ -22,7 +22,7 @@ export default function GoToCartButton() {
     <div className="cart-goto">
       <Link href="/cart">
         <a>
-          <FaShoppingBasket />{" "}
+          <RiShoppingBasket2Line size={32} />{" "}
           <span>{!loading ? data.cart.contents.itemCount : null}</span>
         </a>
       </Link>
