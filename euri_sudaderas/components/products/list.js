@@ -8,6 +8,7 @@ const GET_PRODUCTS = gql`
             edges {
                 cursor
                 node {
+                    databaseId
                     id
                     slug
                     name

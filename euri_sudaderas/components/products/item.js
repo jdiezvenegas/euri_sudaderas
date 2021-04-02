@@ -3,9 +3,11 @@ import Link from 'next/link';
 
 import ProductImage from './image';
 import ProductPrice from './price';
+import AddToCartButton from '../cart/addto';
 
 export default function ProductItem({ data }) {
     const {
+        databaseId,
         id,
         name,
         onSale,
@@ -51,6 +53,7 @@ export default function ProductItem({ data }) {
                 price={price}
                 regularPrice={regularPrice}
             />
+            <AddToCartButton id={databaseId} />
         </div>
     )
 }

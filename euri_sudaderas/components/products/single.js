@@ -1,11 +1,11 @@
-// import { useRouter } from 'next/router'
 import { useQuery, gql } from "@apollo/client";
 
 import ProductItem from './item';
 
 const GET_PRODUCT_BY_ID = gql`
-    query MyQuery ($id: ID!) {
+    query ($id: ID!) {
         product(id: $id) {
+            databaseId
             id
             slug
             name

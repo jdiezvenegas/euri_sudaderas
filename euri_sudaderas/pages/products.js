@@ -1,6 +1,7 @@
 import Head from "next/head";
 import ClientOnly from "../domain/hooks/client-only";
 import ProductList from "../components/products/list";
+import GoToCartButton from "../components/cart/goto";
 
 export default function ProductsPage() {
   return (
@@ -11,6 +12,7 @@ export default function ProductsPage() {
       </Head>
 
       <main>
+        <GoToCartButton />
         <h1>
           Products:
         </h1>
