@@ -3,6 +3,7 @@ import ClientOnly from "../../domain/hooks/client-only";
 import SingleProduct from "../../components/products/single";
 
 import { useRouter } from 'next/router'
+import Layout from "../../components/layout";
 
 export default function SingleProductPage() {
     const router = useRouter()
@@ -15,14 +16,14 @@ export default function SingleProductPage() {
             <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main>
+            <Layout>
                 <h1>
                     Products:
                 </h1>
                 <ClientOnly>
                     <SingleProduct id={id} />
                 </ClientOnly>
-            </main>
+            </Layout>
         </div>
     );
 }
