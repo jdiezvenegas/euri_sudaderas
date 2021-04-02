@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Navigation from "../components/navigation";
 
 export default function Home() {
   return (
@@ -7,11 +8,10 @@ export default function Home() {
         <title>Sudaderas ETSIT</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main>
-        <h1 className="header">
-          Welcome to <a href="https://eurielec.etsit.upm.es">eurielec</a>
-        </h1>
+        <Navigation />
+        <h1 className="header">Welcome to eurielec.</h1>
+        <img scr="/logo_euri.png" />
       </main>
     </div>
   );

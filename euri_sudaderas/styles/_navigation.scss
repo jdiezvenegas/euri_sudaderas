@@ -1,0 +1,11 @@
+.nav-container {
+    @include flexCenter(row);
+    height: 10%;
+    min-height: 30px;
+    max-height: 50px;
+
+    .nav-logo {
+        visibility: visible;
+        height: 100%;
+    }
+}
