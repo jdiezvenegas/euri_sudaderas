@@ -47,7 +47,7 @@ const GET_PRODUCTS = gql`
 `;
 
 export default function ProductList() {
-  const { data, loading, error } = useQuery(GET_PRODUCTS);
+  const { data, loading, error } = useQuery(GET_PRODUCTS, {variables: {first: 20}});
 
   if (loading) {
     return <h2>Loading...</h2>;
