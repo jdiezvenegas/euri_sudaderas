@@ -1,11 +1,8 @@
 import { useQuery, gql } from "@apollo/client";
-import { useContext } from 'react';
-import { AppContext } from '../../context/app-context';
-
 import CartItem from './item';
 
 export const GET_CART = gql`
-    query {
+    query GetCart {
         cart(recalculateTotals: true) {
             total
             contents {
@@ -56,11 +53,9 @@ export const GET_CART = gql`
 `;
 
 export default function CartList() {
-
-    const [ cart, setCart ] = useContext( AppContext );
     const { data, loading, error } = useQuery(GET_CART, {
         fetchPolicy:"cache-and-network"
-      });
+    });
 
     if (loading) {
         return <h2>Loading...</h2>;
@@ -76,7 +71,6 @@ export default function CartList() {
 
     return (
         <div>
-            <p>Porducts in the cart: {cart}</p>
             {items.map(({ cursor, node }) => <CartItem key={cursor} data={node} /> )}
             <h3>Total price:</h3>
             <span key={'total'}>{total}</span>

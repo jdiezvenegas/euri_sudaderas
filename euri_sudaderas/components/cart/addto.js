@@ -1,9 +1,8 @@
 import { useMutation, gql } from "@apollo/client";
-import { useContext } from 'react';
-import { AppContext } from '../../context/app-context';
+import { GET_ITEMS_IN_CART } from "./goto";
 
 const ADD_PRODUCT_TO_CART = gql`
-    mutation ($id: Int!) {
+    mutation AddProductToCart ($id: Int!) {
         addToCart(input: {productId: $id}) {
             clientMutationId
         }
@@ -11,32 +10,15 @@ const ADD_PRODUCT_TO_CART = gql`
 `;
 
 export default function AddToCartButton({ id }) {
-
-    const [ cart, setCart ] = useContext( AppContext );
     const [addToCart, { loading, error }] = useMutation(ADD_PRODUCT_TO_CART);
 
     const handleAddToCart = (event) => {
         event.preventDefault();
-        
-        if ( process.browser ) {
 
-            let existingCart = localStorage.getItem('cart')
-            
-            if(existingCart) {
-
-                existingCart = parseInt(existingCart)
-                setCart(existingCart + 1)
-                localStorage.setItem('cart', existingCart + 1)
-
-            } else {
-
-                setCart(1)
-                localStorage.setItem('cart', 1)
-
-            }
-        }
-
-        addToCart({ variables: { id: id } });
+        addToCart({
+            variables: { id: id },
+            refetchQueries: [{query: GET_ITEMS_IN_CART}]
+        });
     }
 
     return (
