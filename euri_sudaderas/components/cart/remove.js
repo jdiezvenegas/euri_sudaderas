@@ -2,18 +2,20 @@ import { useMutation, gql } from "@apollo/client";
 import { useContext } from 'react';
 import { AppContext } from '../../context/app-context';
 
-const ADD_PRODUCT_TO_CART = gql`
-    mutation ($id: Int!) {
-        addToCart(input: {productId: $id}) {
+import { GET_CART } from './list';
+
+const REMOVE_PRODUCT_FROM_CART = gql`
+    mutation ($ids: [ID]!) {
+        removeItemsFromCart(input: {keys: $ids}) {
             clientMutationId
         }
     }
 `;
 
-export default function AddToCartButton({ id }) {
+export default function RemoveFromCartButton({ id, quantity }) {
 
     const [ cart, setCart ] = useContext( AppContext );
-    const [addToCart, { loading, error }] = useMutation(ADD_PRODUCT_TO_CART);
+    const [removeFromCart, { loading, error }] = useMutation(REMOVE_PRODUCT_FROM_CART);
 
     const handleAddToCart = (event) => {
         event.preventDefault();
@@ -25,24 +27,22 @@ export default function AddToCartButton({ id }) {
             if(existingCart) {
 
                 existingCart = parseInt(existingCart)
-                setCart(existingCart + 1)
-                localStorage.setItem('cart', existingCart + 1)
-
-            } else {
-
-                setCart(1)
-                localStorage.setItem('cart', 1)
+                setCart(existingCart - quantity)
+                localStorage.setItem('cart', existingCart - quantity)
 
             }
         }
 
-        addToCart({ variables: { id: id } });
+        removeFromCart({
+            variables: {ids: [id]},
+            refetchQueries: [{query: GET_CART}]
+        });
     }
 
     return (
         <div>
             <button disabled={loading} onClick={handleAddToCart}>
-                Add to cart
+                Remove from cart
             </button>
         </div>
     )

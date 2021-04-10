@@ -1,19 +1,38 @@
 import { createContext, useContext } from 'react';
+import { useReducer } from 'react';
 
-const AppContext = createContext();
+export const StateContext = createContext();
+export const DispatchContext = createContext();
 
-export function AppWrapper({ children }) {
-  let sharedState = {
-      cart: 0
-  }
-
-  return (
-    <AppContext.Provider value={sharedState}>
-      {children}
-    </AppContext.Provider>
-  );
+const store = {
+  cart: 0
 }
 
-export function useAppContext() {
-  return useContext(AppContext);
+const reducer = (store, action) => {
+  switch(action.type){
+    case 'addToCart' : {
+      store.cart++;
+      return store;
+    }  
+    case 'removeFromCart' : {
+      store.cart = store.cart--;
+      return store;
+    }
+    case 'emptyCart' : {
+      store.cart = 0;
+      return store;
+    }
+  }
+}
+
+export function AppWrapper({ children }) {
+ const [state, dispatch] = useReducer(reducer, store)
+
+  return (
+    <StateContext.Provider value={state}>
+      <DispatchContext.Provider value={dispatch}>
+        {children}
+      </DispatchContext.Provider>
+    </StateContext.Provider>
+  );
 }

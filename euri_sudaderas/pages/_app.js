@@ -1,14 +1,14 @@
 import "../styles/style.scss";
-import { AppWrapper } from '../context/state'; 
+import { AppProvider } from '../context/app-context'; 
 import { ApolloProvider } from "@apollo/client";
 import client from "../apollo-client";
 
 function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
-      <AppWrapper>
+      <AppProvider>
         <Component {...pageProps} />
-      </AppWrapper>
+      </AppProvider>
     </ApolloProvider>
   );
 }
