@@ -11,10 +11,10 @@ export default function CartItem({ data }) {
     } = data
 
     return (
-        <div>
+        <div className="cart-item-container">
             <ProductItem data={product.node} />
+            {/* <span>{quantity} - {total}</span> */}
             <UpdateItemQuantityInput id={key} quantity={quantity} />
-            <span>{quantity} - {total}</span>
             <RemoveFromCartButton id={key} quantity={quantity} />
         </div>
     )

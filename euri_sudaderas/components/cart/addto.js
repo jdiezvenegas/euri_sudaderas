@@ -22,7 +22,7 @@ export default function AddToCartButton({ id }) {
     }
 
     return (
-        <div>
+        <div className="cart-addto">
             <button disabled={loading} onClick={handleAddToCart}>
                 Add to cart
             </button>

@@ -23,7 +23,7 @@ export default function RemoveFromCartButton({ id, quantity }) {
     }
 
     return (
-        <div>
+        <div className="cart-remove">
             <button disabled={loading} onClick={handleAddToCart}>
                 Remove from cart
             </button>

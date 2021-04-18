@@ -71,7 +71,7 @@ export default function CartList() {
     const total = data.cart.total || 0;
 
     return (
-        <div>
+        <div className="cart-list-container">
             {items.map(({ cursor, node }) => <CartItem key={cursor} data={node} /> )}
             <h3>Total price:</h3>
             <span key={'total'}>{total}</span>

@@ -54,8 +54,8 @@ export default function Navigation() {
               </Link>
             </Nav.Item>
             <Nav.Item>
-              <Link href="/faq">
-                <Nav.Link as="a" href="/faq">
+              <Link href="/cart">
+                <Nav.Link as="a" href="/cart">
                   <GoToCartButton />
                 </Nav.Link>
               </Link>

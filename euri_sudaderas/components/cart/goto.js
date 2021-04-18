@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { RiShoppingBasket2Line } from "react-icons/ri";
 import { useQuery, gql } from "@apollo/client";
 
@@ -19,12 +18,8 @@ export default function GoToCartButton() {
   
   return (
     <div className="cart-goto">
-      <Link href="/cart">
-        <div as='a'>
-          <RiShoppingBasket2Line size={32} />{" "}
-          <span>{data ? data.cart.contents.itemCount : 0}</span>
-        </div>
-      </Link>
+      <RiShoppingBasket2Line size={32} />{" "}
+      <span>{data ? data.cart.contents.itemCount : 0}</span>
     </div>
   );
 }
