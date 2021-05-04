@@ -1,9 +1,8 @@
-import { useQuery, gql } from "@apollo/client";
-import Link from "next/link";
 import { RiShoppingBasket2Line } from "react-icons/ri";
+import { useQuery, gql } from "@apollo/client";
 
-const GET_CART_ITEM_COUNT = gql`
-  query {
+export const GET_ITEMS_IN_CART = gql`
+  query GetItemsInCart {
     cart {
       contents {
         itemCount
@@ -13,15 +12,14 @@ const GET_CART_ITEM_COUNT = gql`
 `;
 
 export default function GoToCartButton() {
-  const { data, loading, error } = useQuery(GET_CART_ITEM_COUNT);
+  const { data, loading, error } = useQuery(GET_ITEMS_IN_CART, {
+    fetchPolicy:"cache-and-network"
+  });
+  
   return (
     <div className="cart-goto">
-      <Link href="/cart">
-        <a>
-          <RiShoppingBasket2Line size={32} />{" "}
-          <span>{!loading ? data.cart.contents.itemCount : null}</span>
-        </a>
-      </Link>
+      <RiShoppingBasket2Line size={32} />{" "}
+      <span>{data ? data.cart.contents.itemCount : 0}</span>
     </div>
   );
 }

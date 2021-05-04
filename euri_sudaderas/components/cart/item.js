@@ -1,16 +1,21 @@
 import ProductItem from '../products/item';
+import UpdateItemQuantityInput from './quantity';
+import RemoveFromCartButton from './remove';
 
 export default function CartItem({ data }) {
     const {
         product,
         quantity,
-        total
+        total,
+        key
     } = data
 
     return (
-        <div>
+        <div className="cart-item-container">
             <ProductItem data={product.node} />
-            <span>{quantity} - {total}</span>
-            </div>
+            {/* <span>{quantity} - {total}</span> */}
+            <UpdateItemQuantityInput id={key} quantity={quantity} />
+            <RemoveFromCartButton id={key} quantity={quantity} />
+        </div>
     )
 }

@@ -1,15 +1,16 @@
 import { useQuery, gql } from "@apollo/client";
-
+import EmptyCartButton from "./empty";
 import CartItem from './item';
+import CartTotal from './total';
 
-const GET_CART = gql`
-    query {
+export const GET_CART = gql`
+    query GetCart {
         cart(recalculateTotals: true) {
-            total
             contents {
                 edges {
                     cursor
                     node {
+                        key
                         product {
                             node {
                                 databaseId
@@ -53,7 +54,9 @@ const GET_CART = gql`
 `;
 
 export default function CartList() {
-    const { data, loading, error } = useQuery(GET_CART);
+    const { data, loading, error } = useQuery(GET_CART, {
+        fetchPolicy:"cache-and-network"
+    });
 
     if (loading) {
         return <h2>Loading...</h2>;
@@ -64,13 +67,14 @@ export default function CartList() {
         return null;
     }
 
-    const cart = data.cart || [];
+    const items = data.cart.contents.edges;
+    const total = data.cart.total || 0;
 
     return (
-        <div>
-            {cart.contents.edges.map(({ cursor, node }) => <CartItem key={cursor} data={node} /> )}
-            <h3>Total price:</h3>
-            <span key={'total'}>{cart.total}</span>
+        <div className="cart-list-container">
+            {items.map(({ cursor, node }) => <CartItem key={cursor} data={node} /> )}
+            <CartTotal />
+            <EmptyCartButton />
         </div>
     );
 }
