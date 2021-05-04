@@ -30,6 +30,10 @@ const GET_PRODUCTS = gql`
               nodes {
                 name
                 databaseId
+                image {
+                  altText
+                  sourceUrl
+                }
                 attributes {
                   nodes {
                     value

@@ -10,6 +10,8 @@ export default function ProductItem({ data }) {
   const [ size, setSize ] = useState("")
   const [ color, setColor ] = useState("")
   const [ variation, setVariation ] = useState("")
+  const [ currentImage, setCurrentImage ] = useState(data.image)
+
   const {
     databaseId,
     id,
@@ -29,7 +31,6 @@ export default function ProductItem({ data }) {
     if (size && color){
       variations.nodes.forEach(node => {
         if (node.attributes.nodes.some(node => node.value===color) && node.attributes.nodes.some(node => node.value===size)) {
-          console.log(node)
           setVariation(node.databaseId)
         }
       })
@@ -38,6 +39,12 @@ export default function ProductItem({ data }) {
 
   const colorChange = e => {
     e.target.checked && setColor(e.target.value)
+
+    e.target.checked && variations.nodes.forEach(node => {
+      if (node.attributes.nodes.some(node => node.value===color)) {
+        setCurrentImage(node.image)
+      }
+    })
   }
 
   const sizeChange = e => {
@@ -49,7 +56,7 @@ export default function ProductItem({ data }) {
     <div className="product-item-container">
       <Link className="product-image" href={"/product/" + id.toString()}>
         <a>
-          <ProductImage data={{ image }} />
+          <ProductImage data={{ image: currentImage }} />
         </a>
       </Link>
       <div className="name-and-sale-container">
