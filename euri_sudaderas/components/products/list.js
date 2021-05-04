@@ -14,7 +14,6 @@ const GET_PRODUCTS = gql`
         node {
           databaseId
           id
-          slug
           name
           type
           shortDescription
@@ -24,22 +23,36 @@ const GET_PRODUCTS = gql`
             sourceUrl
             altText
           }
-          galleryImages {
-            nodes {
-              id
-              sourceUrl
-              altText
-            }
-          }
-          ... on SimpleProduct {
-            onSale
-            price
-            regularPrice
-          }
           ... on VariableProduct {
             onSale
             price
             regularPrice
+            variations {
+              nodes {
+                name
+                databaseId
+                image {
+                  altText
+                  sourceUrl
+                }
+                attributes {
+                  nodes {
+                    value
+                    name
+                  }
+                }
+              }
+            }
+          }
+          paColors {
+            nodes {
+              name
+            }
+          }
+          paSizes {
+            nodes {
+              name
+            }
           }
         }
       }

@@ -5,6 +5,7 @@ import RemoveFromCartButton from './remove';
 export default function CartItem({ data }) {
     const {
         product,
+        variation,
         quantity,
         total,
         key
@@ -13,7 +14,7 @@ export default function CartItem({ data }) {
     return (
         <div className="cart-item-container">
             <ProductItem data={product.node} />
-            {/* <span>{quantity} - {total}</span> */}
+            {variation && variation.attributes.map(({ name, value }) => <p>{value}</p>)}
             <UpdateItemQuantityInput id={key} quantity={quantity} />
             <RemoveFromCartButton id={key} quantity={quantity} />
         </div>
