@@ -25,5 +25,18 @@
             border-color: $white500;
             border-image: none;
         }
+
+
+        .product-price {
+            font-size: 1.5em;
+            font-weight: 500;
+        }
+
+        .regular-price {
+            margin-top: -.8em;
+            text-decoration: line-through;
+            font-size: 0.7em;
+            color: $dark400;
+        }
     }
 }
