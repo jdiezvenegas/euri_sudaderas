@@ -23,13 +23,13 @@
         height: 30%;
         min-width: 150px;
 
-            .name-and-sale-container {
+            .name-container {
                 h3 {
                     font-size: 1.2em;
                 }
                 margin: 0;
                 width: 100%;
-                @include flexCenter(row);
+                @include flexCenter(column);
                 justify-content: space-between;
             }
 

@@ -64,15 +64,15 @@ export default function ProductItem({ data }) {
           <ProductImage data={{ image: currentImage }} />
         </a>
       </Link>
-      <div className="name-and-sale-container">
+      <div className="name-container">
         <Link className="product-image" href={"/product/" + id.toString()}>
           <a>
             <h3>{name}</h3>
           </a>
         </Link>
 
-        {onSale && (
-          <>
+        {shortDescription && (
+          <div className="description-container">
             {parse(shortDescription, {
               replace({ name, children }) {
                 if (name === "p") {
@@ -82,7 +82,7 @@ export default function ProductItem({ data }) {
                 }
               }
             })}
-          </>
+          </div>
         )}
       </div>
       <form>
