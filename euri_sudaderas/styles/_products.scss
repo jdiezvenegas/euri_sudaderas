@@ -45,13 +45,19 @@
             }
 
             button {
-                border-radius: 10px;
-                background-color: $commonMint;
+                border: none;
+                font-weight: 400;
+                background-color: $black;
+                color: white;
                 height: 30px;
+                width: 140px;
                 font-family: inherit;
-                font-weight: lighter;
-                border-color: $white500;
-                border-image: none;
+
+                -webkit-transform: skew(-20deg);
+                -moz-transform: skew(-20deg);
+                -ms-transform: skew(-20deg);
+                -o-transform: skew(-20deg);
+                transform: skew(-20deg);
             }
         }
     }

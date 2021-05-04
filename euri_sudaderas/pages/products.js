@@ -7,7 +7,7 @@ export default function ProductsPage() {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Productos</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

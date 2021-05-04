@@ -1,7 +1,15 @@
 .nav-container {
-    .nav-logo {
-        // visibility: visible;
-        height: 100%;
+
+    .navbar {
+
+        .navbar-brand {
+            .nav-logo {
+                display: inline-block;
+                vertical-align: middle;
+                height: 100%;
+                @include flexCenter(column);
+            }
+        }
     }
 
     // This is for phone sized displays

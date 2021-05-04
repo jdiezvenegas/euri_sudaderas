@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Sudaderas ETSIT</title>
+        <title>Tienda Eurielec</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>

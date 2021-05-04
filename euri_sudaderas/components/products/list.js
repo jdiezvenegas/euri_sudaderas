@@ -3,7 +3,7 @@ import { useQuery, gql } from "@apollo/client";
 import ProductItem from "./item";
 
 const GET_PRODUCTS = gql`
-  query GetProducts ($first: Int, $after: String) {
+  query GetProducts($first: Int, $after: String) {
     products(
       first: $first
       after: $after
@@ -18,6 +18,7 @@ const GET_PRODUCTS = gql`
           name
           type
           shortDescription
+          description
           image {
             id
             sourceUrl
@@ -47,7 +48,9 @@ const GET_PRODUCTS = gql`
 `;
 
 export default function ProductList() {
-  const { data, loading, error } = useQuery(GET_PRODUCTS, {variables: {first: 20}});
+  const { data, loading, error } = useQuery(GET_PRODUCTS, {
+    variables: { first: 20 }
+  });
 
   if (loading) {
     return <h2>Loading...</h2>;

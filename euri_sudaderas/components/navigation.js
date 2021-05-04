@@ -4,7 +4,7 @@ import Image from "next/image";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
-import GoToCartButton from './cart/goto';
+import GoToCartButton from "./cart/goto";
 
 export default function Navigation() {
   return (
@@ -17,7 +17,7 @@ export default function Navigation() {
                 src="/logo_euri.png"
                 alt="Logo de eurielec"
                 height={40}
-                width={172}
+                width={241}
               />
             </div>
           </Navbar.Brand>

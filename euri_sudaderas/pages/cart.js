@@ -7,17 +7,17 @@ export default function CartPage() {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Mi cesta</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Layout>
-        <h1>
-          Cart:
-        </h1>
-        <ClientOnly>
-          <CartList />
-        </ClientOnly>
+        <div className="cart-container">
+          <h1 className="header">Mi cesta</h1>
+          <ClientOnly>
+            <CartList />
+          </ClientOnly>
+        </div>
       </Layout>
     </div>
   );

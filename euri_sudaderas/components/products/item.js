@@ -16,7 +16,8 @@ export default function ProductItem({ data }) {
     image,
     galleryImages,
     type,
-    shortDescription: description,
+    shortDescription,
+    description,
     link
   } = data;
 
@@ -36,9 +37,9 @@ export default function ProductItem({ data }) {
         {onSale && <>On Sale</>}
       </div>
       <div className="description-container">
-        {description && (
+        {shortDescription && (
           <>
-            {parse(description, {
+            {parse(shortDescription, {
               replace({ name, children }) {
                 if (name === "p") {
                   {

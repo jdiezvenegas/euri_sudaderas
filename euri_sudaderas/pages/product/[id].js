@@ -12,7 +12,7 @@ export default function SingleProductPage() {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Producto</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
