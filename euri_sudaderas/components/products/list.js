@@ -61,10 +61,12 @@ export default function ProductList() {
   const products = data.products.edges || [];
 
   return (
-    <div className="products-list-container">
-      {products.map(({ cursor, node }) => (
-        <ProductItem key={cursor} data={node} />
-      ))}
+    <div className="product-page">
+      <div className="products-list-container">
+        {products.map(({ cursor, node }) => (
+          <ProductItem key={cursor} data={node} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,10 +1,10 @@
-import Navigation from './navigation';
+import Navigation from "./navigation";
 
 export default function Layout({ children }) {
-    return (
-        <main>
-            <Navigation />
-            {children}
-        </main>
-    )
+  return (
+    <main>
+      <Navigation />
+      {children}
+    </main>
+  );
 }

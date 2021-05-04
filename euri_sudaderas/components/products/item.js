@@ -33,25 +33,23 @@ export default function ProductItem({ data }) {
             <h3>{name}</h3>
           </a>
         </Link>
-        {onSale && (
+        {onSale && <>On Sale</>}
+      </div>
+      <div className="description-container">
+        {description && (
           <>
-            On Sale
-            <br />
+            {parse(description, {
+              replace({ name, children }) {
+                if (name === "p") {
+                  {
+                    domToReact(children);
+                  }
+                }
+              }
+            })}
           </>
         )}
       </div>
-      {description && (
-        <>
-          <br />
-          {parse(description, {
-            replace({ name, children }) {
-              if (name === "p") {
-                return <small>{domToReact(children)}</small>;
-              }
-            }
-          })}
-        </>
-      )}
       <ProductPrice
         type={type}
         onSale={onSale}

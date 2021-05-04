@@ -12,7 +12,6 @@ export default function ProductsPage() {
       </Head>
 
       <Layout>
-        <h1>Products:</h1>
         <ClientOnly>
           <ProductList />
         </ClientOnly>
