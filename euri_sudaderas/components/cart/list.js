@@ -1,11 +1,11 @@
 import { useQuery, gql } from "@apollo/client";
 import EmptyCartButton from "./empty";
 import CartItem from './item';
+import CartTotal from './total';
 
 export const GET_CART = gql`
     query GetCart {
         cart(recalculateTotals: true) {
-            total
             contents {
                 edges {
                     cursor
@@ -73,8 +73,7 @@ export default function CartList() {
     return (
         <div className="cart-list-container">
             {items.map(({ cursor, node }) => <CartItem key={cursor} data={node} /> )}
-            <h3>Total price:</h3>
-            <span key={'total'}>{total}</span>
+            <CartTotal />
             <EmptyCartButton />
         </div>
     );

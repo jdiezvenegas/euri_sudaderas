@@ -46,6 +46,25 @@
             }
         }
 
+        .cart-quantity-adjust {
+            button {
+                width: 1.8em;
+                height: 1.8em;
+                margin: 0 10px;
+                border-radius: 50%;
+                background-color: $dark700;
+                color: $white700;
+                display: inline-block;
+                border: none;
+
+                font-weight: 800;
+
+                &:disabled {
+                    color: $dark400;
+                }
+            }
+        }
+
         .product-item-container {
             width: 60%;
             @include flexCenter(row);
