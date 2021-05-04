@@ -11,6 +11,12 @@ export const GET_CART = gql`
                     cursor
                     node {
                         key
+                        variation {
+                            attributes {
+                                name
+                                value
+                            }
+                        }
                         product {
                             node {
                                 databaseId
@@ -68,11 +74,10 @@ export default function CartList() {
     }
 
     const items = data.cart.contents.edges;
-    const total = data.cart.total || 0;
 
     return (
         <div className="cart-list-container">
-            {items.map(({ cursor, node }) => <CartItem key={cursor} data={node} /> )}
+            {items && items.map(({ cursor, node }) => <CartItem key={cursor} data={node} /> )}
             <CartTotal />
             <EmptyCartButton />
         </div>
