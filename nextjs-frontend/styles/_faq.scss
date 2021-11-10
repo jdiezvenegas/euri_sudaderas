@@ -1,0 +1,13 @@
+.faq-container {
+    overflow: hidden;
+    height: 600px;
+    @include flexCenter(column);
+    flex-wrap: wrap;
+
+    .faq {
+        width: 50%;
+        @media only screen and (max-width: 860px) {
+            width: 90%;
+        }
+    }
+}

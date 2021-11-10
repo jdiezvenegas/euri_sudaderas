@@ -1,0 +1,31 @@
+.navbar-container {
+    @include flexCenter(row);
+    justify-content: space-between;
+    margin: clamp(20px, 40px, 100px);
+    padding: clamp(10px, 20px, 40px);
+
+    @media only screen and (max-width: 600px) {
+        margin: 0;
+        padding: 20px;
+    }
+
+    overflow: hidden;
+
+    .logo {
+        height: 3em;
+    }
+    .reduced{
+        height: 2.2em;
+    }
+    a {
+        font-size: 1.2em;
+        color: $black;
+        text-decoration: none;
+        text-align: left;
+    }
+    .right-menu {
+        @include flexCenter(row);
+        align-items: fle;
+        width: clamp(400px, 30%, 600px);
+    }
+}

@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "carts",
+  "info": {
+    "name": "Cart",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Email": {
+      "type": "string",
+      "required": true
+    },
+    "Orders": {
+      "collection": "order"
+    },
+    "Date": {
+      "type": "datetime",
+      "required": true
+    },
+    "Payment": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "successful",
+        "failed"
+      ],
+      "required": true,
+      "default": "pending"
+    }
+  }
+}

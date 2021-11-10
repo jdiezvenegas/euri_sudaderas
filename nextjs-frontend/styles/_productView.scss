@@ -1,0 +1,6 @@
+.product-view-container {
+    padding: 20px;
+    @include flexCenter(row);
+    flex-wrap: wrap;
+    // width: 100%;
+}

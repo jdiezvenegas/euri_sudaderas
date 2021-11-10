@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categories",
+  "info": {
+    "name": "Category",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "Price": {
+      "type": "decimal",
+      "required": false
+    },
+    "Color": {
+      "type": "json"
+    },
+    "Size": {
+      "type": "json"
+    },
+    "Model": {
+      "type": "json"
+    },
+    "Degree": {
+      "type": "json"
+    },
+    "Details": {
+      "type": "json"
+    }
+  }
+}
