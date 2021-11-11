@@ -66,21 +66,15 @@ function ProductView(props) {
       var correspondingList = data?.product?.Image.filter(image => {
         image = selectedColor?.Images?.find(elem => elem.url === image.url)
         if(!image) return false
-        console.log(image.url)
 
         image = selectedModel?.Images?.find(elem => elem.url === image.url)
         if(!image) return false
-        console.log(image.url)
 
-        console.log(selectedDegree)
         image = selectedDegree?.Images?.find(elem => elem.url === image.url)
         if(!image) return false
-        console.log(image.url)
 
         return image
       }).map(image => process.env.NEXT_PUBLIC_STRAPI_URL + image.url)
-
-      console.log(correspondingList)
 
       if(correspondingList?.length) {
         setCorrespondingImages(correspondingList)
@@ -97,9 +91,6 @@ function ProductView(props) {
     !selectedColor && setSelectedColor(data?.product?.colors[0])
     !selectedModel && setSelectedModel(data?.product?.models[0])
     !selectedDegree && setSelectedDegree(data?.product?.degrees[0])
-
-    // console.log(data?.product?.degrees)
-
 
     return (
       <div className="product-detail-container">
@@ -172,7 +163,7 @@ function ProductView(props) {
               value={selectedSize}
             >
               {Object.keys(data?.product?.Sizes).map(key => (
-                <option value={key}>
+                <option key={key} value={key}>
                   {`${key} - L:${data?.product?.Sizes[key].length} W:${data?.product?.Sizes[key].width}`}
                 </option>
               ))}
@@ -188,9 +179,11 @@ function ProductView(props) {
               props.setCart(
                 addToCart(props.cart, {
                   name: data?.product?.Name,
-                  price: data?.product?.Category?.Price,
+                  price: data?.product?.Price,
                   id: id,
-                  color: selectedColor,
+                  color: selectedColor.Name,
+                  model: selectedModel.Name,
+                  degree: selectedDegree.Name,
                   size: selectedSize
                 })
               )
@@ -208,7 +201,7 @@ function ProductView(props) {
             </p>
             <p className="details-mini-title">Weight</p>
             {Object.keys(data?.product?.Details?.weight).map(key => (
-              <p className="details-text">
+              <p key={key} className="details-text">
                 {key}: {data?.product?.Details?.weight[key]}
               </p>
             ))}
