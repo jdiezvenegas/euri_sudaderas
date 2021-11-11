@@ -174,6 +174,7 @@ function ProductView(props) {
 
           {/* Add to Cart Button */}
           <button
+            style={{cursor: 'pointer'}}
             className="add-button"
             onClick={e =>
               props.setCart(

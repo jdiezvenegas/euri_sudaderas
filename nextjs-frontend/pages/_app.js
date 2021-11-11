@@ -2,7 +2,7 @@ import Head from "next/head";
 import { client } from "../utils";
 import { ApolloProvider } from "@apollo/client";
 import { useCookies } from "react-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Layout } from "../components";
 
 import "../styles/style.scss";
@@ -13,6 +13,10 @@ export default function MyApp({ Component, pageProps }) {
       ? JSON.parse(localStorage.getItem("cart")) || {}
       : {}
   );
+
+  useEffect(() => {
+    console.log("Cart changed")
+  }, [cart])
 
   return (
     <ApolloProvider client={client}>

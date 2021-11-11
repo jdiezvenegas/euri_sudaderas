@@ -18,7 +18,7 @@ function NavBar(props) {
 
   useEffect(() => {
     setCartItemNumber(getCartItemNumber(props?.cart));
-  }, [props]);
+  }, [props.cart]);
 
   useEffect(() => {
     function handleResize() {
@@ -46,7 +46,7 @@ function NavBar(props) {
         <Link href="/faq">FAQ</Link>
         <a href="mailto:sudaderas@eurielec.etsit.upm.es">Contacto</a>
         <Link href="/cart">
-          <div>
+          <div style={{cursor: 'pointer'}}>
             <IconContext.Provider value={{ size: "1.4em" }}>
               <FiShoppingCart />
             </IconContext.Provider>
