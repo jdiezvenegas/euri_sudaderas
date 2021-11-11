@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { useRouter } from "next/router";
 import { addToCart, removeFromCart } from "../../utils";
@@ -11,21 +11,42 @@ const GET_PRODUCT = gql`
       Image {
         url
       }
-      Category {
-        Price
-        Color
-        Size
+      Price
+      colors {
+        id
         Name
-        Details
+        Hex
+        Images {
+          url
+        }
       }
+      models {
+        id
+        Name
+        Images {
+          url
+        }
+      }
+      degrees {
+        id
+        Name
+        Images {
+          url
+        }
+      }
+      Sizes
+      Details
     }
   }
 `;
 
 function ProductView(props) {
-  const [selectedColor, setSelectedColor] = useState("White");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+  const [selectedDegree, setSelectedDegree] = useState("");
   const [selectedSize, setSelectedSize] = useState("L");
-
+  const [correspondingImages, setCorrespondingImages] = useState([]);
+  
   const router = useRouter();
   const { id } = router.query;
 
@@ -33,38 +54,115 @@ function ProductView(props) {
     variables: { id }
   });
 
-  function handleColorClick(e, key) {
+  function handleColorClick(e, color) {
     e.preventDefault();
-    setSelectedColor(key);
+    setSelectedColor(color);
   }
+
+  useEffect(() => {
+    const placeholder = process.env.PLACEHOLDER_IMAGE_URL
+
+    if(selectedColor && selectedModel && selectedDegree) {
+      var correspondingList = data?.product?.Image.filter(image => {
+        image = selectedColor?.Images?.find(elem => elem.url === image.url)
+        if(!image) return false
+        console.log(image.url)
+
+        image = selectedModel?.Images?.find(elem => elem.url === image.url)
+        if(!image) return false
+        console.log(image.url)
+
+        console.log(selectedDegree)
+        image = selectedDegree?.Images?.find(elem => elem.url === image.url)
+        if(!image) return false
+        console.log(image.url)
+
+        return image
+      }).map(image => process.env.NEXT_PUBLIC_STRAPI_URL + image.url)
+
+      console.log(correspondingList)
+
+      if(correspondingList?.length) {
+        setCorrespondingImages(correspondingList)
+      } else {
+        setCorrespondingImages([placeholder])
+      }
+    }
+  }, [selectedColor, selectedModel, selectedDegree])
 
   if (loading) {
     return <h2>Loading</h2>;
-  } else
+  } else {
+    // Defaul Values
+    !selectedColor && setSelectedColor(data?.product?.colors[0])
+    !selectedModel && setSelectedModel(data?.product?.models[0])
+    !selectedDegree && setSelectedDegree(data?.product?.degrees[0])
+
+    // console.log(data?.product?.degrees)
+
+
     return (
       <div className="product-detail-container">
+
+        {/* Product Images */}
         <img
           className="product-detail-image"
-          src={process.env.NEXT_PUBLIC_STRAPI_URL + data?.product?.Image[0].url}
+          src={correspondingImages[0]}
           alt="Sudadera"
         />
+
+        {/* Product Info */}
         <div className="product-info-options">
+          {/* Product Name and Price */}
           <h2 className="product-name">{data?.product?.Name}</h2>
-          <p className="product-price">{data?.product?.Category?.Price}€</p>
-          <p>{selectedColor}</p>
+          <p className="product-price">{data?.product?.Price}€</p>
+          {/* Product Color */}
+          <p>{selectedColor.Name}</p>
           <div className="product-colors-container">
-            {Object.keys(data?.product?.Category?.Color).map(key => (
-              // console.log(key)
+            {data?.product?.colors.map(color => (
               <div
-                onClick={e => handleColorClick(e, key)}
-                key={key}
+                onClick={e => handleColorClick(e, color)}
+                key={color.id}
                 className={`color-square ${
-                  selectedColor === key ? "selected" : ""
+                  selectedColor === color ? "selected" : ""
                 }`}
-                style={{ background: data?.product?.Category?.Color[key] }}
+                style={{ background: color.Hex }}
               ></div>
             ))}
           </div>
+          {/* Product Model */}
+          <div className="product-model-container">
+            <select
+              name="model"
+              id="model"
+              className="model-selector"
+              onChange={e => setSelectedModel(data?.product?.models.find(model => model.Name === e.target.value))}
+              value={selectedModel.Name}
+            >
+              {data?.product?.models.map(model => (
+                <option key={model.id} value={model.Name}>
+                  {model.Name}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* Product Degree */}
+          <div className="product-degree-container">
+            <select
+              name="degree"
+              id="degree"
+              className="degree-selector"
+              onChange={e => setSelectedDegree(data?.product?.degrees.find(degree => degree.Name === e.target.value))}
+              value={selectedDegree.Name}
+            >
+              {data?.product?.degrees.map(degree => (
+                <option key={degree.id} value={degree.Name}>
+                  {degree.Name}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* Product Size */}
           <div className="product-size-container">
             <select
               name="size"
@@ -73,14 +171,17 @@ function ProductView(props) {
               onChange={e => setSelectedSize(e.target.value)}
               value={selectedSize}
             >
-              {Object.keys(data?.product?.Category?.Size).map(key => (
+              {Object.keys(data?.product?.Sizes).map(key => (
                 <option value={key}>
-                  {`${key} - L:${data?.product?.Category?.Size[key].length} W:${data?.product?.Category?.Size[key].width}`}
+                  {`${key} - L:${data?.product?.Sizes[key].length} W:${data?.product?.Sizes[key].width}`}
                 </option>
               ))}
             </select>
           </div>
+          {/* Product Description */}
           <p>{data?.product?.Description}</p>
+
+          {/* Add to Cart Button */}
           <button
             className="add-button"
             onClick={e =>
@@ -98,26 +199,28 @@ function ProductView(props) {
             Añadir a la cesta
           </button>
 
+          {/* Product Details */}
           <div className="product-details">
             <p className="details-title">Details</p>
             <p className="details-mini-title">Materials</p>
             <p className="details-text">
-              {data?.product?.Category?.Details?.materials}
+              {data?.product?.Details?.materials}
             </p>
             <p className="details-mini-title">Weight</p>
-            {Object.keys(data?.product?.Category?.Details?.weight).map(key => (
+            {Object.keys(data?.product?.Details?.weight).map(key => (
               <p className="details-text">
-                {key}: {data?.product?.Category?.Details?.weight[key]}
+                {key}: {data?.product?.Details?.weight[key]}
               </p>
             ))}
             <p className="details-mini-title">Care</p>
             <p className="details-text">
-              {data?.product?.Category?.Details?.care}
+              {data?.product?.Details?.care}
             </p>
           </div>
         </div>
       </div>
     );
+  }
 }
 
 export default ProductView;

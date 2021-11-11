@@ -6,16 +6,9 @@ function ProductItem(props) {
     id,
     Name: name,
     Image: image,
-    Category: category,
+    Price: price,
     Description: description
   } = props.product;
-  console.log(category);
-  const {
-    Price: price,
-    Color: color,
-    Size: size,
-    Name: categoryName
-  } = category;
   console.log(image);
 
   return (
@@ -27,7 +20,6 @@ function ProductItem(props) {
           alt="Product"
         />
         <div className="product-info">
-          <p className="product-category-name">{categoryName}</p>
           <p className="product-name">{name}</p>
           <p>{price}€</p>
         </div>
