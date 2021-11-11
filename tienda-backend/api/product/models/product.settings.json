@@ -45,12 +45,8 @@
       "collection": "color",
       "via": "product"
     },
-    "degrees": {
+    "designs": {
       "collection": "degree",
-      "via": "product"
-    },
-    "models": {
-      "collection": "model",
       "via": "product"
     }
   }

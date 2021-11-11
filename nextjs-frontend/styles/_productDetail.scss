@@ -106,31 +106,12 @@
             }
         }
 
-        .product-model-container {
+        .product-design-container {
             width: 100%;
             border: none;
             margin-bottom: 20px;
 
-            .model-selector {
-                border-radius: 4px;
-                width: 140px;
-                height: 25px;
-                padding-left: 10px;
-                border: 2px solid $black;
-                background: $white;
-
-                &:focus {
-                    outline: none;
-                }
-            }
-        }
-
-        .product-degree-container {
-            width: 100%;
-            border: none;
-            margin-bottom: 20px;
-
-            .degree-selector {
+            .design-selector {
                 border-radius: 4px;
                 width: 140px;
                 height: 25px;

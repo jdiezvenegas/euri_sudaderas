@@ -20,14 +20,7 @@ const GET_PRODUCT = gql`
           url
         }
       }
-      models {
-        id
-        Name
-        Images {
-          url
-        }
-      }
-      degrees {
+      designs {
         id
         Name
         Images {
@@ -42,8 +35,7 @@ const GET_PRODUCT = gql`
 
 function ProductView(props) {
   const [selectedColor, setSelectedColor] = useState("");
-  const [selectedModel, setSelectedModel] = useState("");
-  const [selectedDegree, setSelectedDegree] = useState("");
+  const [selectedDesign, setSelectedDesign] = useState("");
   const [selectedSize, setSelectedSize] = useState("L");
   const [correspondingImages, setCorrespondingImages] = useState([]);
   
@@ -62,15 +54,12 @@ function ProductView(props) {
   useEffect(() => {
     const placeholder = process.env.PLACEHOLDER_IMAGE_URL
 
-    if(selectedColor && selectedModel && selectedDegree) {
+    if(selectedColor && selectedDesign) {
       var correspondingList = data?.product?.Image.filter(image => {
         image = selectedColor?.Images?.find(elem => elem.url === image.url)
         if(!image) return false
 
-        image = selectedModel?.Images?.find(elem => elem.url === image.url)
-        if(!image) return false
-
-        image = selectedDegree?.Images?.find(elem => elem.url === image.url)
+        image = selectedDesign?.Images?.find(elem => elem.url === image.url)
         if(!image) return false
 
         return image
@@ -82,15 +71,14 @@ function ProductView(props) {
         setCorrespondingImages([placeholder])
       }
     }
-  }, [selectedColor, selectedModel, selectedDegree])
+  }, [selectedColor, selectedDesign])
 
   if (loading) {
     return <h2>Loading</h2>;
   } else {
     // Defaul Values
     !selectedColor && setSelectedColor(data?.product?.colors[0])
-    !selectedModel && setSelectedModel(data?.product?.models[0])
-    !selectedDegree && setSelectedDegree(data?.product?.degrees[0])
+    !selectedDesign && setSelectedDesign(data?.product?.designs[0])
 
     return (
       <div className="product-detail-container">
@@ -121,34 +109,18 @@ function ProductView(props) {
               ></div>
             ))}
           </div>
-          {/* Product Model */}
-          <div className="product-model-container">
+          {/* Product Design */}
+          <div className="product-design-container">
             <select
-              name="model"
-              id="model"
-              className="model-selector"
-              onChange={e => setSelectedModel(data?.product?.models.find(model => model.Name === e.target.value))}
-              value={selectedModel.Name}
+              name="design"
+              id="design"
+              className="design-selector"
+              onChange={e => setSelectedDesign(data?.product?.designs.find(design => design.Name === e.target.value))}
+              value={selectedDesign.Name}
             >
-              {data?.product?.models.map(model => (
-                <option key={model.id} value={model.Name}>
-                  {model.Name}
-                </option>
-              ))}
-            </select>
-          </div>
-          {/* Product Degree */}
-          <div className="product-degree-container">
-            <select
-              name="degree"
-              id="degree"
-              className="degree-selector"
-              onChange={e => setSelectedDegree(data?.product?.degrees.find(degree => degree.Name === e.target.value))}
-              value={selectedDegree.Name}
-            >
-              {data?.product?.degrees.map(degree => (
-                <option key={degree.id} value={degree.Name}>
-                  {degree.Name}
+              {data?.product?.designs.map(design => (
+                <option key={design.id} value={design.Name}>
+                  {design.Name}
                 </option>
               ))}
             </select>
@@ -183,8 +155,7 @@ function ProductView(props) {
                   price: data?.product?.Price,
                   id: id,
                   color: selectedColor.Name,
-                  model: selectedModel.Name,
-                  degree: selectedDegree.Name,
+                  design: selectedDesign.Name,
                   size: selectedSize
                 })
               )
