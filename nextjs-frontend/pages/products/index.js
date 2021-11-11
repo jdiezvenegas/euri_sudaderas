@@ -1,27 +1,6 @@
 import { useQuery, gql } from "@apollo/client";
 import { ProductItem } from "../../components";
 
-// const GET_PRODUCTS = gql`
-//   query($id: ID!) {
-//     product(id: $id) {
-//       id
-//       name
-//       description
-//       image {
-//         url
-//       }
-//       category {
-//         name
-//         price
-//         color
-//         size
-//         degree
-//         model
-//       }
-//     }
-//   }
-// `;
-
 const GET_PRODUCTS = gql`
   query {
     products {

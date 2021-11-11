@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { useRouter } from "next/router";
-import { addToCart, removeFromCart } from "../../utils";
+import AppContext from "/context/AppContext";
+import { useContext } from "react";
+// import { addToCart, removeFromCart } from "../../utils";
 
 const GET_PRODUCT = gql`
   query GetProduct($id: ID!) {
@@ -38,6 +40,8 @@ function ProductView(props) {
   const [selectedDesign, setSelectedDesign] = useState("");
   const [selectedSize, setSelectedSize] = useState("L");
   const [correspondingImages, setCorrespondingImages] = useState([]);
+
+  const appContext = useContext(AppContext);
   
   const router = useRouter();
   const { id } = router.query;
@@ -149,15 +153,15 @@ function ProductView(props) {
             style={{cursor: 'pointer'}}
             className="add-button"
             onClick={e =>
-              props.setCart(
-                addToCart(props.cart, {
+              appContext.addItem(
+                {
                   name: data?.product?.Name,
                   price: data?.product?.Price,
-                  id: id,
+                  id: id+selectedColor.id+selectedDesign.id+selectedSize.id,
                   color: selectedColor.Name,
                   design: selectedDesign.Name,
                   size: selectedSize
-                })
+                }
               )
             }
           >

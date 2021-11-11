@@ -1,33 +1,40 @@
 import { OrderRow } from "../components";
-import { getCartPrice } from "../utils";
+import AppContext from "/context/AppContext";
+import { useContext } from "react";
+// import { getCartPrice } from "../utils";
 
 function Cart(props) {
+  const appContext = useContext(AppContext);
+  const { cart } = appContext
+
   return (
     <div className="cart-container">
-      {Object.keys(props?.cart).map(key => (
-        <OrderRow
-          key={key}
-          amount={props.cart[key].length}
-          items={props.cart[key]}
-        />
-      ))}
+      <ul>
+        {cart.items ? cart.items.map(item => (
+          <OrderRow
+            key={item.id}
+            amount={item.quantity}
+            item={item}
+          />
+        )) : null}
+      </ul>
       <div className="total">
         <span className="text"> Total </span>
-        <span className="price"> {getCartPrice(props?.cart)}€</span>
+        <span className="price"> {cart.total}€</span>
       </div>
       <button
         className="pay-button"
-        onClick={e =>
-          props.setCart(
-            addToCart(props.cart, {
-              name: data?.product?.Name,
-              price: data?.product?.Category?.Price,
-              id: id,
-              color: selectedColor,
-              size: selectedSize
-            })
-          )
-        }
+        // onClick={e =>
+        //   props.setCart(
+        //     addToCart(props.cart, {
+        //       name: data?.product?.Name,
+        //       price: data?.product?.Category?.Price,
+        //       id: id,
+        //       color: selectedColor,
+        //       size: selectedSize
+        //     })
+        //   )
+        // }
       >
         Pagar
       </button>

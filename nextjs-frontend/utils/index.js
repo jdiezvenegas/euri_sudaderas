@@ -1,4 +1,4 @@
-import client from "./apolloClient";
+import client from "./apollo";
 import {
   addToCart,
   removeFromCart,
