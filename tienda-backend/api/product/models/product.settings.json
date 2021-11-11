@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "products",
   "info": {
-    "name": "Product"
+    "name": "Product",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -29,8 +30,28 @@
     "Description": {
       "type": "text"
     },
-    "Category": {
-      "model": "category"
+    "Price": {
+      "type": "decimal",
+      "required": true
+    },
+    "Details": {
+      "type": "json",
+      "required": false
+    },
+    "Sizes": {
+      "type": "json"
+    },
+    "colors": {
+      "collection": "color",
+      "via": "product"
+    },
+    "degrees": {
+      "collection": "degree",
+      "via": "product"
+    },
+    "models": {
+      "collection": "model",
+      "via": "product"
     }
   }
 }

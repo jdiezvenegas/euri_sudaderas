@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "colors",
   "info": {
-    "name": "Color"
+    "name": "Color",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -26,6 +27,10 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "product": {
+      "via": "colors",
+      "model": "product"
     }
   }
 }
