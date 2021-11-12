@@ -72,7 +72,6 @@ export default function MyApp({ Component, pageProps }) {
         }
       );
     } else {
-      const items = [...items];
       const index = items.findIndex((i) => i.id === newItem.id);
 
       items.splice(index, 1);

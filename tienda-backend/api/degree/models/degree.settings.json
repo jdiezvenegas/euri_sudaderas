@@ -25,9 +25,9 @@
       "required": false,
       "pluginOptions": {}
     },
-    "product": {
+    "products": {
       "via": "designs",
-      "model": "product"
+      "collection": "product"
     }
   }
 }

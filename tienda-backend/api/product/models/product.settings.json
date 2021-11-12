@@ -43,11 +43,13 @@
     },
     "colors": {
       "collection": "color",
-      "via": "product"
+      "via": "products",
+      "dominant": true
     },
     "designs": {
       "collection": "degree",
-      "via": "product"
+      "via": "products",
+      "dominant": true
     }
   }
 }

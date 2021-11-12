@@ -3,6 +3,7 @@ import { useQuery, gql } from "@apollo/client";
 import { useRouter } from "next/router";
 import AppContext from "/context/AppContext";
 import { useContext } from "react";
+import Link from "next/link";
 // import { addToCart, removeFromCart } from "../../utils";
 
 const GET_PRODUCT = gql`
@@ -40,6 +41,8 @@ function ProductView(props) {
   const [selectedDesign, setSelectedDesign] = useState("");
   const [selectedSize, setSelectedSize] = useState("L");
   const [correspondingImages, setCorrespondingImages] = useState([]);
+
+  const [productAdded, setProductAdded] = useState(false)
 
   const appContext = useContext(AppContext);
   
@@ -152,22 +155,24 @@ function ProductView(props) {
           <button
             style={{cursor: 'pointer'}}
             className="add-button"
-            onClick={e =>
-              appContext.addItem(
-                {
-                  name: data?.product?.Name,
-                  price: data?.product?.Price,
-                  id: id+selectedColor.id+selectedDesign.id+selectedSize.id,
-                  color: selectedColor.Name,
-                  design: selectedDesign.Name,
-                  size: selectedSize
-                }
-              )
+            onClick={e => {
+                appContext.addItem(
+                  {
+                    name: data?.product?.Name,
+                    price: data?.product?.Price,
+                    id: id+selectedColor.id+selectedDesign.id+selectedSize.id,
+                    color: selectedColor.Name,
+                    design: selectedDesign.Name,
+                    size: selectedSize
+                  }
+                );
+                setProductAdded(true);
+              }
             }
           >
             Añadir a la cesta
           </button>
-
+          {productAdded && <p>Producto añadido a la <Link href="/cart">cesta</Link></p>}
           {/* Product Details */}
           <div className="product-details">
             <p className="details-title">Details</p>
