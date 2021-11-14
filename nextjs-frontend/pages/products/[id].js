@@ -160,7 +160,7 @@ function ProductView(props) {
                   {
                     name: data?.product?.Name,
                     price: data?.product?.Price,
-                    id: id+selectedColor.id+selectedDesign.id+selectedSize.id,
+                    id: id+"-"+selectedColor.id+"-"+selectedDesign.id+"-"+selectedSize,
                     color: selectedColor.Name,
                     design: selectedDesign.Name,
                     size: selectedSize
