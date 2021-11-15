@@ -159,6 +159,7 @@ function ProductView(props) {
                 appContext.addItem(
                   {
                     name: data?.product?.Name,
+                    product_id: id,
                     price: data?.product?.Price,
                     id: id+"-"+selectedColor.id+"-"+selectedDesign.id+"-"+selectedSize,
                     color: selectedColor.Name,

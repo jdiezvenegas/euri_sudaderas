@@ -1,42 +1,37 @@
-import Cors from 'cors'
-
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const strapi_url = process.env.NEXT_PUBLIC_STRAPI_URL + "/graphql"
 
-// Initializing the cors middleware
-const cors = Cors({
-  methods: ['POST'],
-  origin: "https://checkout.stripe.com"
-  // origin: process.env.NEXT_PUBLIC_FRONTEND_URL
-})
-
-// Helper method to wait for a middleware to execute before continuing
-// And to throw an error when an error happens in a middleware
-function runMiddleware(req, res, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result)
-      }
-
-      return resolve(result)
-    })
-  })
-}
+const query = `query GetProduct($id: ID!) {
+  product(id: $id) {
+    PriceID
+  }
+}`;
 
 export default async function handler(req, res) {
-  // Run the middleware
-  // await runMiddleware(req, res, cors)
-
   if (req.method === 'POST') {
     try {
-      const line_items = req.body.items.map(item => {
+      const line_items = await Promise.all(req.body.items.map(async item => {
+        const res = await fetch(strapi_url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            query,
+            variables: { id: item.product_id }
+          })
+        })
+        const body = await res.json()
+
         return {
-          price: 'price_1Jw7S2Dvv5YbSUbaCNq0xeUi',
+          price: body.data.product.PriceID,
           quantity: item.quantity,
           description: [item.name, item.design, item.color, item.size].join(" - ")
         }
-      })
+      }))
       console.log(line_items)
+
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create({
         line_items: line_items,
@@ -52,7 +47,6 @@ export default async function handler(req, res) {
       res.json({url: session.url})
       // res.redirect(303, session.url);
     } catch (err) {
-      console.log(err)
       res.status(err.statusCode || 500).json(err.message);
     }
   } else {

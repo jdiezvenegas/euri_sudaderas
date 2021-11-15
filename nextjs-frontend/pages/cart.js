@@ -19,6 +19,7 @@ function Cart(props) {
       body: JSON.stringify(cart),
       method: "POST",
     })
+    console.log(res)
     const body = await res.json()
     window.location.href = body.url
   }
