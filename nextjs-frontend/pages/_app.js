@@ -87,6 +87,10 @@ export default function MyApp({ Component, pageProps }) {
     }, 0)
   }
 
+  const emptyCart = () => {
+    setCart({ items: [], total: 0 })
+  }
+
   return (
     <ApolloProvider client={client}>
       <AppContext.Provider
@@ -95,6 +99,7 @@ export default function MyApp({ Component, pageProps }) {
           addItem: addItem,
           removeItem: removeItem,
           countItems: countItems,
+          emptyCart: emptyCart,
         }}
       >
         <Head>
