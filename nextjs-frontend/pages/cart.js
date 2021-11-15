@@ -5,18 +5,16 @@ import { useContext } from "react";
 
 function Cart(props) {
   const appContext = useContext(AppContext);
-  const { cart } = appContext
+  const { cart } = appContext;
 
   return (
     <div className="cart-container">
-      <ul>
-        {cart.items ? cart.items.map(item => (
-          <OrderRow
-            key={item.id}
-            amount={item.quantity}
-            item={item}
-          />
-        )) : null}
+      <ul className="items-list">
+        {cart.items
+          ? cart.items.map(item => (
+              <OrderRow key={item.id} amount={item.quantity} item={item} />
+            ))
+          : null}
       </ul>
       <div className="total">
         <span className="text"> Total </span>

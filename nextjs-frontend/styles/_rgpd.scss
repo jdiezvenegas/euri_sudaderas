@@ -1,0 +1,14 @@
+.rgpd-container {
+    overflow: hidden;
+    // height: 600px;
+    @include flexCenter(column);
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+
+    .rgpd {
+        width: 50%;
+        @media only screen and (max-width: 860px) {
+            width: 90%;
+        }
+    }
+}

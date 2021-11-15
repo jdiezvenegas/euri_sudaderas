@@ -42,10 +42,10 @@ function ProductView(props) {
   const [selectedSize, setSelectedSize] = useState("L");
   const [correspondingImages, setCorrespondingImages] = useState([]);
 
-  const [productAdded, setProductAdded] = useState(false)
+  const [productAdded, setProductAdded] = useState(false);
 
   const appContext = useContext(AppContext);
-  
+
   const router = useRouter();
   const { id } = router.query;
 
@@ -59,37 +59,36 @@ function ProductView(props) {
   }
 
   useEffect(() => {
-    const placeholder = process.env.PLACEHOLDER_IMAGE_URL
+    const placeholder = process.env.PLACEHOLDER_IMAGE_URL;
 
-    if(selectedColor && selectedDesign) {
+    if (selectedColor && selectedDesign) {
       var correspondingList = data?.product?.Image.filter(image => {
-        image = selectedColor?.Images?.find(elem => elem.url === image.url)
-        if(!image) return false
+        image = selectedColor?.Images?.find(elem => elem.url === image.url);
+        if (!image) return false;
 
-        image = selectedDesign?.Images?.find(elem => elem.url === image.url)
-        if(!image) return false
+        image = selectedDesign?.Images?.find(elem => elem.url === image.url);
+        if (!image) return false;
 
-        return image
-      }).map(image => process.env.NEXT_PUBLIC_STRAPI_URL + image.url)
+        return image;
+      }).map(image => process.env.NEXT_PUBLIC_STRAPI_URL + image.url);
 
-      if(correspondingList?.length) {
-        setCorrespondingImages(correspondingList)
+      if (correspondingList?.length) {
+        setCorrespondingImages(correspondingList);
       } else {
-        setCorrespondingImages([placeholder])
+        setCorrespondingImages([placeholder]);
       }
     }
-  }, [selectedColor, selectedDesign])
+  }, [selectedColor, selectedDesign]);
 
   if (loading) {
     return <h2>Loading</h2>;
   } else {
     // Defaul Values
-    !selectedColor && setSelectedColor(data?.product?.colors[0])
-    !selectedDesign && setSelectedDesign(data?.product?.designs[0])
+    !selectedColor && setSelectedColor(data?.product?.colors[0]);
+    !selectedDesign && setSelectedDesign(data?.product?.designs[0]);
 
     return (
       <div className="product-detail-container">
-
         {/* Product Images */}
         <img
           className="product-detail-image"
@@ -122,7 +121,13 @@ function ProductView(props) {
               name="design"
               id="design"
               className="design-selector"
-              onChange={e => setSelectedDesign(data?.product?.designs.find(design => design.Name === e.target.value))}
+              onChange={e =>
+                setSelectedDesign(
+                  data?.product?.designs.find(
+                    design => design.Name === e.target.value
+                  )
+                )
+              }
               value={selectedDesign.Name}
             >
               {data?.product?.designs.map(design => (
@@ -153,33 +158,32 @@ function ProductView(props) {
 
           {/* Add to Cart Button */}
           <button
-            style={{cursor: 'pointer'}}
+            style={{ cursor: "pointer" }}
             className="add-button"
             onClick={e => {
-                appContext.addItem(
-                  {
-                    name: data?.product?.Name,
-                    price: data?.product?.Price,
-                    id: id+selectedColor.id+selectedDesign.id+selectedSize.id,
-                    color: selectedColor.Name,
-                    design: selectedDesign.Name,
-                    size: selectedSize
-                  }
-                );
-                setProductAdded(true);
-              }
-            }
+              appContext.addItem({
+                name: data?.product?.Name,
+                price: data?.product?.Price,
+                id: id + selectedColor.id + selectedDesign.id + selectedSize.id,
+                color: selectedColor.Name,
+                design: selectedDesign.Name,
+                size: selectedSize
+              });
+              setProductAdded(true);
+            }}
           >
             Añadir a la cesta
           </button>
-          {productAdded && <p>Producto añadido a la <Link href="/cart">cesta</Link></p>}
+          {productAdded && (
+            <p>
+              Producto añadido a la <Link href="/cart">cesta</Link>
+            </p>
+          )}
           {/* Product Details */}
           <div className="product-details">
             <p className="details-title">Details</p>
             <p className="details-mini-title">Materials</p>
-            <p className="details-text">
-              {data?.product?.Details?.materials}
-            </p>
+            <p className="details-text">{data?.product?.Details?.materials}</p>
             <p className="details-mini-title">Weight</p>
             {Object.keys(data?.product?.Details?.weight).map(key => (
               <p key={key} className="details-text">
@@ -187,9 +191,7 @@ function ProductView(props) {
               </p>
             ))}
             <p className="details-mini-title">Care</p>
-            <p className="details-text">
-              {data?.product?.Details?.care}
-            </p>
+            <p className="details-text">{data?.product?.Details?.care}</p>
           </div>
         </div>
       </div>

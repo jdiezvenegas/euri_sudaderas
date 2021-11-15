@@ -1,7 +1,8 @@
 .order-row-container {
+    margin: 0;
     @include flexCenter(row);
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     border: 2px solid $black;
     border-radius: 10px;
     margin-bottom: 40px;
@@ -10,34 +11,86 @@
     padding-right: 40px;
     width: 600px;
     vertical-align: middle;
+    box-shadow: 5px 6px 22px -9px rgba(0, 0, 0, 0.5);
     @media only screen and (max-width: 860px) {
+        width: 100%;
         padding: 10px;
-        width: 85%;
     }
 
     // Shadow
     box-shadow: 5px 6px 22px -9px rgba(0, 0, 0, 0.5);
 
-    .product-amount {
+    .amount-container {
+        @include flexCenter(row);
+        justify-content: flex-start;
         flex: 1;
-        margin: 0;
+        padding-right: 14px;
+
+        .product-amount {
+            // flex: 1;
+            margin: 0;
+            padding-right: 10px;
+        }
+
+        .buttons {
+            @include flexCenter(row);
+            @media only screen and (max-width: 400px) {
+                @include flexCenter(column);
+            }
+
+            button {
+                margin-right: 5px;
+                height: 25px;
+                width: 25px;
+
+                background: $white;
+                border: 2px solid $black;
+                border-radius: 4px;
+
+                @media only screen and (max-width: 400px) {
+                    margin-right: 0px;
+                }
+            }
+        }
+
     }
 
     .product-info {
         @include flexCenter(row);
         justify-content: space-between;
-        align-items: flex-start;
-        flex: 6;
+        align-items: center;
+        flex: 8;
+
 
         .product-name {
             margin: 0;
             font-weight: 400;
+            font-size: 1em;
+            @media only screen and (max-width: 400px) {
+                font-size: 0.8em;
+            }
         }
 
         .product-price {
             margin: 0;
             padding-right: 10px;
             vertical-align: bottom;
+
+            font-size: 1em;
+            @media only screen and (max-width: 400px) {
+                font-size: 1em;
+            }
+        }
+
+        .product-options {
+            margin: 0;
+            padding-right: 10px;
+            vertical-align: bottom;
+
+            font-size: 0.9em;
+            @media only screen and (max-width: 400px) {
+                font-size: 0.8em;
+            }
         }
 
         .items {
