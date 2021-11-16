@@ -7,15 +7,15 @@ services:
     restart: unless-stopped
     ports:
       - 5003:3000
-    environment:
+    # environment:
       # DONT CHANGE HERE, CHANGE .env FILE INSIDE PROJECT
       # SINCE process.env is part of node, not the browser,
       # variables get accessed during build
-      - NEXT_PUBLIC_STRAPI_URL=<example.org>
-      - PLACEHOLDER_IMAGE_URL=<example.org>
-      - STRIPE_SECRET_KEY=<example>
-      - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=<example>
-      - TZ=Europe/Madrid
+      # - NEXT_PUBLIC_STRAPI_URL=<example.org>
+      # - PLACEHOLDER_IMAGE_URL=<example.org>
+      # - STRIPE_SECRET_KEY=<example>
+      # - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=<example>
+      # - TZ=Europe/Madrid
 
   shop-backend:
     build: ./tienda-backend
