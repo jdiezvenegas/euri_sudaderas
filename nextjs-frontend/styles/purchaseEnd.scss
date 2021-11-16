@@ -1,0 +1,11 @@
+.purchase-end-container {
+    @include flexCenter(column);
+    align-items: flex-start;
+
+    width: 600px;
+    padding: clamp(100px, 200px, 400px);
+    @media only screen and (max-width: 860px) {
+        padding: 20px;
+        width: 85%;
+    }
+}

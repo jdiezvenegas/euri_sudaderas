@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import AppContext from "/context/AppContext";
 import { useContext } from "react";
 import Link from "next/link";
-// import { addToCart, removeFromCart } from "../../utils";
+import { Loading } from "../../components";
 
 const GET_PRODUCT = gql`
   query GetProduct($id: ID!) {
@@ -81,7 +81,7 @@ function ProductView(props) {
   }, [selectedColor, selectedDesign]);
 
   if (loading) {
-    return <h2>Loading</h2>;
+    return <Loading />;
   } else {
     // Defaul Values
     !selectedColor && setSelectedColor(data?.product?.colors[0]);
@@ -163,8 +163,16 @@ function ProductView(props) {
             onClick={e => {
               appContext.addItem({
                 name: data?.product?.Name,
+                product_id: id,
                 price: data?.product?.Price,
-                id: id + selectedColor.id + selectedDesign.id + selectedSize.id,
+                id:
+                  id +
+                  "-" +
+                  selectedColor.id +
+                  "-" +
+                  selectedDesign.id +
+                  "-" +
+                  selectedSize,
                 color: selectedColor.Name,
                 design: selectedDesign.Name,
                 size: selectedSize

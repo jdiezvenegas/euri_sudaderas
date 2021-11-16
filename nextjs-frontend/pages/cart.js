@@ -1,11 +1,28 @@
 import { OrderRow } from "../components";
 import AppContext from "/context/AppContext";
 import { useContext } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 // import { getCartPrice } from "../utils";
 
 function Cart(props) {
-  const appContext = useContext(AppContext);
-  const { cart } = appContext;
+  const { cart } = useContext(AppContext);
+
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  );
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    const url = "/api/checkout_sessions";
+    const res = await fetch(url, {
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(cart),
+      method: "POST"
+    });
+    console.log(res);
+    const body = await res.json();
+    window.location.href = body.url;
+  };
 
   return (
     <div className="cart-container">
@@ -20,22 +37,25 @@ function Cart(props) {
         <span className="text"> Total </span>
         <span className="price"> {cart.total}€</span>
       </div>
-      <button
-        className="pay-button"
-        // onClick={e =>
-        //   props.setCart(
-        //     addToCart(props.cart, {
-        //       name: data?.product?.Name,
-        //       price: data?.product?.Category?.Price,
-        //       id: id,
-        //       color: selectedColor,
-        //       size: selectedSize
-        //     })
-        //   )
-        // }
-      >
-        Pagar
-      </button>
+      <form onSubmit={handleSubmit}>
+        <button
+          type="submit"
+          className="pay-button"
+          // onClick={e =>
+          //   props.setCart(
+          //     addToCart(props.cart, {
+          //       name: data?.product?.Name,
+          //       price: data?.product?.Category?.Price,
+          //       id: id,
+          //       color: selectedColor,
+          //       size: selectedSize
+          //     })
+          //   )
+          // }
+        >
+          Pagar
+        </button>
+      </form>
     </div>
   );
 }

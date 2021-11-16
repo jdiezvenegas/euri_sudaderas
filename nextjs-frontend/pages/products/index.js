@@ -1,5 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
-import { ProductItem } from "../../components";
+import { ProductItem, Loading } from "../../components";
 
 const GET_PRODUCTS = gql`
   query {
@@ -18,16 +18,15 @@ const GET_PRODUCTS = gql`
 function ProductView() {
   const { data, loading, error } = useQuery(GET_PRODUCTS);
   if (loading) {
-    return <h2>Loading</h2>;
-  } else
-    console.log(data);
-    return (
-      <div className="product-view-container">
-        {data?.products.map(product => (
-          <ProductItem key={product.id} product={product} />
-        ))}
-      </div>
-    );
+    return <Loading />;
+  }
+  return (
+    <div className="product-view-container">
+      {data?.products.map(product => (
+        <ProductItem key={product.id} product={product} />
+      ))}
+    </div>
+  );
 }
 
 export default ProductView;

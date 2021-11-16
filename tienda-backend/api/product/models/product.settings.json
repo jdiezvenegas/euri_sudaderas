@@ -50,6 +50,10 @@
       "collection": "degree",
       "via": "products",
       "dominant": true
+    },
+    "PriceID": {
+      "type": "string",
+      "required": true
     }
   }
 }

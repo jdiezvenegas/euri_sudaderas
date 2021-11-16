@@ -9,6 +9,12 @@ function FAQ() {
           más podemos hacer.
         </p>
 
+        <h1>¿Puedo cancelar mi pedido?</h1>
+        <p>
+          Puede que aún estés a tiempo. Contacta con 722 51 56 06 para estudiar
+          tu caso particular.
+        </p>
+
         <h1>¿Puedo probarme o ver las sudaderas?</h1>
         <p>
           En Eurielec (208L) disponemos de un stock reducido de pedidos
@@ -18,7 +24,7 @@ function FAQ() {
 
         <h1>¿Cuándo llega mi pedido?</h1>
         <p>
-          Hacemos un pedido cada 3 semanas. Depende de cuando pidas. Iremos
+          Hacemos un pedido cada 3 semanas. Depende de cuándo pidas. Iremos
           posteando la fecha de llegada de los pedidos en la web.
         </p>
       </div>
