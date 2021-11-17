@@ -18,10 +18,12 @@ function Cart(props) {
     event.preventDefault();
     if (!read) {
       alert("Por favor lee el documento de protección de datos.");
+    } else {
+      if (!accepted) {
+        alert("Por favor acepta el tratamiento de tus datos.");
+      }
     }
-    if (!accepted) {
-      alert("Por favor acepta el tratamiento de tus datos.");
-    }
+    
     const url = "/api/checkout_sessions";
     const res = await fetch(url, {
       headers: { "content-type": "application/json" },
@@ -29,8 +31,11 @@ function Cart(props) {
       method: "POST"
     });
     console.log(res);
-    const body = await res.json();
-    window.location.href = body.url;
+    
+    if(res.status === 200){
+      const body = await res.json();
+      body.url ? window.location.href = body.url : console.log(body);
+    }
   };
 
   return (
