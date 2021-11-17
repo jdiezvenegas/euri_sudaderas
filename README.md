@@ -13,7 +13,7 @@ To see it live:
 ## TODO
 
 [x] Optimize images with Next.js/Images
-[] [Stripe webhooks](https://stripe.com/docs/payments/checkout/fulfill-orders) to store the orders in our backend
+[x] [Stripe webhooks](https://stripe.com/docs/payments/checkout/fulfill-orders) to store the orders in our backend
 [x] Collect consent
     [] Bug: aunque no lo aceptes te deja pagar igual
 [] Strapi import/export
