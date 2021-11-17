@@ -3,10 +3,12 @@ import { OrderRow, GDPR } from "../components";
 import AppContext from "/context/AppContext";
 import { useContext } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import { Loading } from "../components";
 // import { getCartPrice } from "../utils";
 
 function Cart(props) {
   const { cart } = useContext(AppContext);
+  const [pagando, setPagando] = useState(false)
   const [read, setRead] = useState(false);
   const [accepted, setAccepted] = useState(false);
 
@@ -16,6 +18,7 @@ function Cart(props) {
 
   const handleSubmit = async event => {
     event.preventDefault();
+    
     if (!read) {
       alert("Por favor lee el documento de protección de datos.");
       return;
@@ -26,6 +29,8 @@ function Cart(props) {
       }
     }
     if (read && accepted) {
+      setPagando(true)
+
       const url = "/api/checkout_sessions";
       const res = await fetch(url, {
         headers: { "content-type": "application/json" },
@@ -60,11 +65,16 @@ function Cart(props) {
         setAccepted={setAccepted}
         accepted={accepted}
       />
-      <form onSubmit={handleSubmit}>
-        <button type="submit" className="pay-button">
-          Pagar
-        </button>
-      </form>
+      {
+        pagando ? (<Loading />) : (
+          <form onSubmit={handleSubmit}>
+            <button type="submit" className="pay-button">
+              Pagar
+            </button>
+          </form>
+        )
+      }
+      
     </div>
   );
 }

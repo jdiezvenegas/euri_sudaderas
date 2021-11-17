@@ -15,7 +15,9 @@ To see it live:
 [x] Optimize images with Next.js/Images
 [x] [Stripe webhooks](https://stripe.com/docs/payments/checkout/fulfill-orders) to store the orders in our backend
 [x] Collect consent
-    [] Bug: aunque no lo aceptes te deja pagar igual
-[] Strapi import/export
-[] Añadir cursor: pointer
+    [x] Bug: aunque no lo aceptes te deja pagar igual
+[x] Strapi import/export
+[x] Añadir cursor: pointer
 [] Botón de pagar loading
+[] Comprobar precio para evitar inyecciones
+[] Feedback de errores al pagar
