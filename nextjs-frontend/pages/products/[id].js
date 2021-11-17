@@ -54,14 +54,14 @@ function ProductView(props) {
     variables: { id }
   });
 
+  const placeholder = process.env.NEXT_PUBLIC_PLACEHOLDER_IMAGE_URL;
+
   function handleColorClick(e, color) {
     e.preventDefault();
     setSelectedColor(color);
   }
 
   useEffect(() => {
-    const placeholder = process.env.PLACEHOLDER_IMAGE_URL;
-
     if (selectedColor && selectedDesign) {
       var correspondingList = data?.product?.Image.filter(image => {
         image = selectedColor?.Images?.find(elem => elem.url === image.url);
@@ -87,13 +87,14 @@ function ProductView(props) {
     // Defaul Values
     !selectedColor && setSelectedColor(data?.product?.colors[0]);
     !selectedDesign && setSelectedDesign(data?.product?.designs[0]);
+    console.log(correspondingImages)
 
     return (
       <div className="product-detail-container">
         {/* Product Images */}
         <Image
           className="product-detail-image"
-          src={correspondingImages[0]}
+          src={correspondingImages[0] || placeholder}
           alt="Sudadera"
           height={800}
           width={800}

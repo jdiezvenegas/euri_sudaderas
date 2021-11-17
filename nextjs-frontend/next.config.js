@@ -1,5 +1,5 @@
 module.exports = {
   images: {
-    domains: ["strapi.eurielec.etsit.upm.es"]
+    domains: ["strapi.eurielec.etsit.upm.es", "via.placeholder.com"]
   }
 };
