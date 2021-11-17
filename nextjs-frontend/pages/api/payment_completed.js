@@ -2,7 +2,7 @@
 // See your keys here: https://dashboard.stripe.com/apikeys
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
-const strapi_url = process.env.NEXT_PUBLIC_STRAPI_URL + "/graphql";
+const strapi_url = process.env.NEXT_PUBLIC_STRAPI_URL;
 
 export const config = {
     api: {
@@ -32,23 +32,29 @@ const storeOrderMutation = `mutation CreateOrder($stripe: String!, $email: Strin
     }
 }`;
 
-// const query = `query GetProduct($id: ID!) {
-//     query getOrder($stripe: String!) {
-//         orders(where: { StripeID: $stripe }) {
-//           id
-//         }
-//       }(id: $id) {
-//         PriceID
-//     }
-// }`;
+const authStrapi = async () => {
+    const res = await fetch(strapi_url + "/auth/local", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "identifier": process.env.STRAPI_ORDER_GENERATOR_USER,
+            "password": process.env.STRAPI_ORDER_GENERATOR_PASSWORD,
+        })
+    })
+    const body = await res.json()
+    return body
+}
 
-const storeOrder = async (session) => {
+const storeOrder = async (session, jwt) => {
     console.log(session.metadata.items)
-    const order = await fetch(strapi_url, {
+    const order = await fetch(strapi_url + "/graphql", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Accept: "application/json"
+            Accept: "application/json",
+            Authorization: 'Bearer ' + jwt,
         },
         body: JSON.stringify({
                 query: storeOrderMutation,
@@ -63,11 +69,6 @@ const storeOrder = async (session) => {
     })
 
     console.log(order)
-}
-
-const fulfillOrder = (session) => {
-    // TODO: fill me in
-    console.log("Fulfilling order", session);
 }
 
 export default async function handler(req, res) {
@@ -86,28 +87,14 @@ export default async function handler(req, res) {
         // Handle the checkout.session.completed event
         if (event.type === 'checkout.session.completed') {
             const session = event.data.object;
+            const { jwt } = await authStrapi()
+            console.log("JWT: " + jwt)
 
-            // const { data } = await fetch(strapi_url, {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //         Accept: "application/json"
-            //     },
-            //     body: JSON.stringify({
-            //         query,
-            //         variables: { id: item.product_id }
-            //     })
-            // });
-
-            // if(data.orders.length > 1) {}
-
-            storeOrder(session)
+            // Store order in our backend (Strapi)
+            storeOrder(session, jwt)
             
-            fulfillOrder(session);
-        }
-
-        return res.status(200);
-
+            res.status(200);
+        } else res.status(200);
     } else {
         res.setHeader("Allow", "POST");
         return res.status(405).end("Method Not Allowed");
