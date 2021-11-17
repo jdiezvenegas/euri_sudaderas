@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import AppContext from "/context/AppContext";
 import { useContext } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Loading } from "../../components";
 
 const GET_PRODUCT = gql`
@@ -90,10 +91,13 @@ function ProductView(props) {
     return (
       <div className="product-detail-container">
         {/* Product Images */}
-        <img
+        <Image
           className="product-detail-image"
           src={correspondingImages[0]}
           alt="Sudadera"
+          height={800}
+          width={800}
+          layout="intrinsic"
         />
 
         {/* Product Info */}

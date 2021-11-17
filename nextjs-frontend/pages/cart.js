@@ -1,4 +1,5 @@
-import { OrderRow } from "../components";
+import { useState } from "react";
+import { OrderRow, GDPR } from "../components";
 import AppContext from "/context/AppContext";
 import { useContext } from "react";
 import { loadStripe } from "@stripe/stripe-js";
@@ -6,6 +7,8 @@ import { loadStripe } from "@stripe/stripe-js";
 
 function Cart(props) {
   const { cart } = useContext(AppContext);
+  const [read, setRead] = useState(false);
+  const [accepted, setAccepted] = useState(false);
 
   const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -13,6 +16,12 @@ function Cart(props) {
 
   const handleSubmit = async event => {
     event.preventDefault();
+    if (!read) {
+      alert("Por favor lee el documento de protección de datos.");
+    }
+    if (!accepted) {
+      alert("Por favor acepta el tratamiento de tus datos.");
+    }
     const url = "/api/checkout_sessions";
     const res = await fetch(url, {
       headers: { "content-type": "application/json" },
@@ -37,6 +46,7 @@ function Cart(props) {
         <span className="text"> Total </span>
         <span className="price"> {cart.total}€</span>
       </div>
+      <GDPR setRead={setRead} read={read} setAccepted={setAccepted} />
       <form onSubmit={handleSubmit}>
         <button
           type="submit"

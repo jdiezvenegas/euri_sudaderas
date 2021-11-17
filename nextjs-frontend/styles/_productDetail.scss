@@ -88,6 +88,25 @@
 
         }
 
+        .product-design-container {
+            width: 100%;
+            border: none;
+            margin-bottom: 20px;
+
+            .design-selector {
+                border-radius: 4px;
+                width: 160px;
+                height: 25px;
+                padding-left: 10px;
+                border: 2px solid $black;
+                background: $white;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
         .product-size-container {
             width: 100%;
             border: none;
@@ -95,7 +114,7 @@
 
             .size-selector {
                 border-radius: 4px;
-                width: 140px;
+                width: 160px;
                 height: 25px;
                 padding-left: 10px;
                 border: 2px solid $black;

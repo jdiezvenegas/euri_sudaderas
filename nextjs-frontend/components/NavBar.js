@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { IconContext } from "react-icons";
 import { FiShoppingCart } from "react-icons/fi";
 import Link from "next/link";
+import Image from "next/image";
 import AppContext from "/context/AppContext";
 import { useContext } from "react";
 // import { getCartItemNumber } from "../utils";
@@ -37,18 +38,28 @@ function NavBar(props) {
   return (
     <div className="navbar-container">
       <Link href="/">
-        <img src={imageSrc} className={imageClass} alt="Eurielec's logo" />
+        <Image
+          height={imageClass === "logo reduced" ? 50 : 48}
+          width={imageClass === "logo reduced" ? 50 : 206}
+          layout="intrinsic"
+          className={imageClass}
+          src={imageSrc}
+          alt="Eurielec's logo"
+        />
       </Link>
       <div className="right-menu">
         <Link href="/products">Products</Link>
         <Link href="/faq">FAQ</Link>
         <a href="mailto:sudaderas@eurielec.etsit.upm.es">Contacto</a>
         <Link href="/cart">
-          <div style={{cursor: 'pointer'}}>
+          <div style={{ cursor: "pointer" }}>
             <IconContext.Provider value={{ size: "1.4em" }}>
               <FiShoppingCart />
             </IconContext.Provider>
-            <span className="cart-items-number"> {appContext.countItems() || 0} </span>
+            <span className="cart-items-number">
+              {" "}
+              {appContext.countItems() || 0}{" "}
+            </span>
           </div>
         </Link>
       </div>

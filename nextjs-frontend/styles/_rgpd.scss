@@ -1,14 +1,40 @@
-.rgpd-container {
-    overflow: hidden;
-    // height: 600px;
+.gdpr-logic-container {
     @include flexCenter(column);
-    flex-wrap: wrap;
-    padding-bottom: 40px;
-
-    .rgpd {
-        width: 50%;
+    .rgpd-container {
+        margin: 0;
+        @include flexCenter(column);
+        justify-content: space-between;
+        align-items: center;
+        border: 2px solid $black;
+        border-radius: 10px;
+        margin-bottom: 40px;
+        padding: 20px;
+        padding-left: 40px;
+        padding-right: 40px;
+        width: 600px;
+        vertical-align: middle;
+        box-shadow: 5px 6px 22px -9px rgba(0, 0, 0, 0.5);
         @media only screen and (max-width: 860px) {
-            width: 90%;
+            padding: 10px;
+            width: 85%;
         }
+
+
+        .rgpd {
+            // width: 90%;
+            // height: 600px;
+            @media only screen and (max-width: 860px) {
+                width: 90%;
+            }
+        }
+    }
+
+    .gdpr-please-read {
+        text-decoration: underline;
+        padding-bottom: 40px;
+    }
+
+    .gdpr-please-accept {
+        margin-bottom: 40px;
     }
 }
