@@ -18,3 +18,4 @@ To see it live:
     [] Bug: aunque no lo aceptes te deja pagar igual
 [] Strapi import/export
 [] Añadir cursor: pointer
+[] Botón de pagar loading

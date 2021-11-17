@@ -9,16 +9,22 @@ export const config = {
     },
 }
 
+// Sacado de https://github.com/vercel/next.js/discussions/13405#discussioncomment-405300
 const webhookPayloadParser = (req) =>
-  new Promise((resolve) => {
-    let data = "";
-    req.on("data", (chunk) => {
-      data += chunk;
+    new Promise((resolve) => {
+        let data = "";
+        req.on("data", (chunk) => {
+            data += chunk;
+        });
+        req.on("end", () => {
+            resolve(Buffer.from(data).toString());
+        });
     });
-    req.on("end", () => {
-      resolve(Buffer.from(data).toString());
-    });
-  });
+
+const fulfillOrder = (session) => {
+    // TODO: fill me in
+    console.log("Fulfilling order", session);
+}
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
@@ -29,11 +35,29 @@ export default async function handler(req, res) {
 
         try {
             event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-            console.log(event)
         } catch (err) {
             return res.status(400).send(`Webhook Error: ${err.message}`);
         }
 
+        // Handle the checkout.session.completed event
+        if (event.type === 'checkout.session.completed') {
+            const session = event.data.object;
+
+            // console.log(stripe.checkout.sessions.listLineItems(
+            //     session.id,
+            //     // { limit: 5 },
+            //     // function(err, lineItems) {
+            //     //     // asynchronously called
+            //     // }
+            // ))
+            
+            fulfillOrder(session);
+        }
+
         res.status(200);
+
+    } else {
+        res.setHeader("Allow", "POST");
+        res.status(405).end("Method Not Allowed");
     }
 }

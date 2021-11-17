@@ -7,6 +7,16 @@ const query = `query GetProduct($id: ID!) {
   }
 }`;
 
+const mutation = `mutation CreateOrder($stripe: String!, $email: String!, $paid: Boolean!, $items: JSON!, $price: Float!) {
+  createOrder(
+    input: { data: {StripeID:$stripe, Email:$email, Paid:$paid, Items:$items, Price:$price} }
+  ) {
+    order {
+			id      
+    }
+  }
+}`;
+
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
@@ -45,7 +55,27 @@ export default async function handler(req, res) {
         success_url: `${req.headers.origin}/payments/success`,
         cancel_url: `${req.headers.origin}/payments/cancel`
       });
-      console.log(session);
+
+      const order = await fetch(strapi_url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          query: mutation,
+          variables: {
+            "stripe": session.id,
+            "email": "",
+            "paid": false,
+            "items": line_items,
+            "price": session.amount_total/100
+          }
+        })
+      })
+
+      console.log(order)
+
       res.json({ url: session.url });
       // res.redirect(303, session.url);
     } catch (err) {
