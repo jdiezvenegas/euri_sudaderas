@@ -18,6 +18,7 @@ To see it live:
     [x] Bug: aunque no lo aceptes te deja pagar igual
 [x] Strapi import/export
 [x] Añadir cursor: pointer
-[] Botón de pagar loading
+[x] Botón de pagar loading
 [] Comprobar precio para evitar inyecciones
 [] Feedback de errores al pagar
+[] Backend warning: "API resolved without sending a response for /api/payment_completed, this may result in stalled requests."

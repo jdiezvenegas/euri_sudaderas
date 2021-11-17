@@ -8,7 +8,8 @@ import { Loading } from "../components";
 
 function Cart(props) {
   const { cart } = useContext(AppContext);
-  const [pagando, setPagando] = useState(false)
+  const [paying, setPaying] = useState(false)
+  const [paymentError, setPaymentError] = useState(false)
   const [read, setRead] = useState(false);
   const [accepted, setAccepted] = useState(false);
 
@@ -29,7 +30,8 @@ function Cart(props) {
       }
     }
     if (read && accepted) {
-      setPagando(true)
+      setPaying(true)
+      setPaymentError(false)
 
       const url = "/api/checkout_sessions";
       const res = await fetch(url, {
@@ -42,6 +44,9 @@ function Cart(props) {
       if (res.status === 200) {
         const body = await res.json();
         body.url ? (window.location.href = body.url) : console.log(body);
+      } else {
+        setPaying(false)
+        setPaymentError(true)
       }
     }
   };
@@ -66,7 +71,7 @@ function Cart(props) {
         accepted={accepted}
       />
       {
-        pagando ? (<Loading />) : (
+        paying ? (<Loading />) : (
           <form onSubmit={handleSubmit}>
             <button type="submit" className="pay-button">
               Pagar
@@ -74,6 +79,7 @@ function Cart(props) {
           </form>
         )
       }
+      { paymentError && (<p>No se pudo procesar el pago</p>) }
       
     </div>
   );
