@@ -12,7 +12,9 @@ To see it live:
 
 ## TODO
 
-[] Optimize images with Next.js/Images
+[x] Optimize images with Next.js/Images
 [] [Stripe webhooks](https://stripe.com/docs/payments/checkout/fulfill-orders) to store the orders in our backend
-[] Collect consent
+[x] Collect consent
+    [] Bug: aunque no lo aceptes te deja pagar igual
 [] Strapi import/export
+[] Añadir cursor: pointer
