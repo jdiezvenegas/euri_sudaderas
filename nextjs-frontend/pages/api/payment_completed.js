@@ -2,6 +2,7 @@
 // See your keys here: https://dashboard.stripe.com/apikeys
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
+const strapi_url = process.env.NEXT_PUBLIC_STRAPI_URL + "/graphql";
 
 export const config = {
     api: {
@@ -20,6 +21,49 @@ const webhookPayloadParser = (req) =>
             resolve(Buffer.from(data).toString());
         });
     });
+
+const storeOrderMutation = `mutation CreateOrder($stripe: String!, $email: String!, $paid: Boolean!, $items: JSON!, $price: Float!) {
+    createOrder(
+        input: { data: {StripeID:$stripe, Email:$email, Paid:$paid, Items:$items, Price:$price} }
+    ) {
+        order {
+            id      
+        }
+    }
+}`;
+
+// const query = `query GetProduct($id: ID!) {
+//     query getOrder($stripe: String!) {
+//         orders(where: { StripeID: $stripe }) {
+//           id
+//         }
+//       }(id: $id) {
+//         PriceID
+//     }
+// }`;
+
+const storeOrder = async (session) => {
+    console.log(session.metadata.items)
+    const order = await fetch(strapi_url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify({
+                query: storeOrderMutation,
+                variables: {
+                stripe: session.payment_intent,
+                email: session.customer_details.email,
+                paid: session.payment_status === 'paid',
+                items: JSON.parse(session.metadata.items),
+                price: session.amount_total/100
+            }
+        })
+    })
+
+    console.log(order)
+}
 
 const fulfillOrder = (session) => {
     // TODO: fill me in
@@ -43,21 +87,29 @@ export default async function handler(req, res) {
         if (event.type === 'checkout.session.completed') {
             const session = event.data.object;
 
-            // console.log(stripe.checkout.sessions.listLineItems(
-            //     session.id,
-            //     // { limit: 5 },
-            //     // function(err, lineItems) {
-            //     //     // asynchronously called
-            //     // }
-            // ))
+            // const { data } = await fetch(strapi_url, {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         Accept: "application/json"
+            //     },
+            //     body: JSON.stringify({
+            //         query,
+            //         variables: { id: item.product_id }
+            //     })
+            // });
+
+            // if(data.orders.length > 1) {}
+
+            storeOrder(session)
             
             fulfillOrder(session);
         }
 
-        res.status(200);
+        return res.status(200);
 
     } else {
         res.setHeader("Allow", "POST");
-        res.status(405).end("Method Not Allowed");
+        return res.status(405).end("Method Not Allowed");
     }
 }

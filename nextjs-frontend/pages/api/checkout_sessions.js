@@ -7,15 +7,15 @@ const query = `query GetProduct($id: ID!) {
   }
 }`;
 
-const mutation = `mutation CreateOrder($stripe: String!, $email: String!, $paid: Boolean!, $items: JSON!, $price: Float!) {
-  createOrder(
-    input: { data: {StripeID:$stripe, Email:$email, Paid:$paid, Items:$items, Price:$price} }
-  ) {
-    order {
-			id      
-    }
-  }
-}`;
+// const mutation = `mutation CreateOrder($stripe: String!, $email: String!, $paid: Boolean!, $items: JSON!, $price: Float!) {
+//   createOrder(
+//     input: { data: {StripeID:$stripe, Email:$email, Paid:$paid, Items:$items, Price:$price} }
+//   ) {
+//     order {
+// 			id      
+//     }
+//   }
+// }`;
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -53,28 +53,31 @@ export default async function handler(req, res) {
         mode: "payment",
         // consent_collection: {GDPR: "blablabla"},
         success_url: `${req.headers.origin}/payments/success`,
-        cancel_url: `${req.headers.origin}/payments/cancel`
+        cancel_url: `${req.headers.origin}/payments/cancel`,
+        metadata: {
+          items: JSON.stringify(line_items)
+        }
       });
 
-      const order = await fetch(strapi_url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        },
-        body: JSON.stringify({
-          query: mutation,
-          variables: {
-            "stripe": session.id,
-            "email": "",
-            "paid": false,
-            "items": line_items,
-            "price": session.amount_total/100
-          }
-        })
-      })
+      // const order = await fetch(strapi_url, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Accept: "application/json"
+      //   },
+      //   body: JSON.stringify({
+      //     query: mutation,
+      //     variables: {
+      //       "stripe": session.id,
+      //       "email": "",
+      //       "paid": false,
+      //       "items": line_items,
+      //       "price": session.amount_total/100
+      //     }
+      //   })
+      // })
 
-      console.log(order)
+      // console.log(order)
 
       res.json({ url: session.url });
       // res.redirect(303, session.url);
