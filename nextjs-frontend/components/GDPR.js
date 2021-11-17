@@ -102,7 +102,7 @@ function GDPR(props) {
           <input
             type="checkbox"
             id="gdpr"
-            onClick={() => props.setAccepted(true)}
+            onClick={() => props.setAccepted(!props.accepted)}
           />
           Acepto el tratamiento de mis datos conforme al documento leído
           anteriormente.

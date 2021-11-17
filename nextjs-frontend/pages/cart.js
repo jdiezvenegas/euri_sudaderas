@@ -18,23 +18,26 @@ function Cart(props) {
     event.preventDefault();
     if (!read) {
       alert("Por favor lee el documento de protección de datos.");
+      return;
     } else {
       if (!accepted) {
         alert("Por favor acepta el tratamiento de tus datos.");
+        return;
       }
     }
-    
-    const url = "/api/checkout_sessions";
-    const res = await fetch(url, {
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(cart),
-      method: "POST"
-    });
-    console.log(res);
-    
-    if(res.status === 200){
-      const body = await res.json();
-      body.url ? window.location.href = body.url : console.log(body);
+    if (read && accepted) {
+      const url = "/api/checkout_sessions";
+      const res = await fetch(url, {
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(cart),
+        method: "POST"
+      });
+      console.log(res);
+
+      if (res.status === 200) {
+        const body = await res.json();
+        body.url ? (window.location.href = body.url) : console.log(body);
+      }
     }
   };
 
@@ -51,23 +54,14 @@ function Cart(props) {
         <span className="text"> Total </span>
         <span className="price"> {cart.total}€</span>
       </div>
-      <GDPR setRead={setRead} read={read} setAccepted={setAccepted} />
+      <GDPR
+        setRead={setRead}
+        read={read}
+        setAccepted={setAccepted}
+        accepted={accepted}
+      />
       <form onSubmit={handleSubmit}>
-        <button
-          type="submit"
-          className="pay-button"
-          // onClick={e =>
-          //   props.setCart(
-          //     addToCart(props.cart, {
-          //       name: data?.product?.Name,
-          //       price: data?.product?.Category?.Price,
-          //       id: id,
-          //       color: selectedColor,
-          //       size: selectedSize
-          //     })
-          //   )
-          // }
-        >
+        <button type="submit" className="pay-button">
           Pagar
         </button>
       </form>

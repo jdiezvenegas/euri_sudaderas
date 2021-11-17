@@ -87,7 +87,7 @@ function ProductView(props) {
     // Defaul Values
     !selectedColor && setSelectedColor(data?.product?.colors[0]);
     !selectedDesign && setSelectedDesign(data?.product?.designs[0]);
-    console.log(correspondingImages)
+    console.log(correspondingImages);
 
     return (
       <div className="product-detail-container">
@@ -204,7 +204,11 @@ function ProductView(props) {
               </p>
             ))}
             <p className="details-mini-title">Care</p>
-            <p className="details-text">{data?.product?.Details?.care}</p>
+            {(data?.product?.Details?.care || []).map((item, index) => (
+              <p key={index} className="details-text">
+                {item}
+              </p>
+            ))}
           </div>
         </div>
       </div>

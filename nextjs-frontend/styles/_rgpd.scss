@@ -32,9 +32,14 @@
     .gdpr-please-read {
         text-decoration: underline;
         padding-bottom: 40px;
+        cursor: pointer;
     }
 
     .gdpr-please-accept {
         margin-bottom: 40px;
+    }
+
+    input {
+        cursor: pointer;
     }
 }

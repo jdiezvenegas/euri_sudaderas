@@ -1,4 +1,5 @@
 .product-item-container {
+    cursor: pointer;
     @include flexCenter(column);
     display: flex;
     justify-content: space-between;
