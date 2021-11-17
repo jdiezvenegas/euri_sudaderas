@@ -64,6 +64,7 @@
             width: 100%;
 
             .color-square {
+                cursor: pointer;
                 border-radius: 4px;
                 height: 25px;
                 width: 25px;
@@ -133,7 +134,7 @@
 
             .design-selector {
                 border-radius: 4px;
-                width: 140px;
+                width: 160px;
                 height: 25px;
                 padding-left: 10px;
                 border: 2px solid $black;

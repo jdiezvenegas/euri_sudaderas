@@ -68,5 +68,6 @@
 
     .pay-button {
         @include button();
+        cursor: pointer;
     }
 }
