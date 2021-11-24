@@ -6,11 +6,10 @@ WORKDIR /app
 
 # add app
 COPY . .
-ENV NODE_ENV=production
 
 # install app dependencies
 RUN yarn install --silent
-RUN yarn run build
+RUN NODE_ENV=production yarn run build
 
 # start
-CMD ["yarn", "run",  "start"]
+CMD ["NODE_ENV=production", "yarn", "run",  "start"]

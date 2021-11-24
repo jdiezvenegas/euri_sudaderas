@@ -2,8 +2,7 @@
   "kind": "collectionType",
   "collectionName": "orders",
   "info": {
-    "name": "Order",
-    "description": ""
+    "name": "Order"
   },
   "options": {
     "increments": true,
@@ -12,22 +11,14 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "StripeID": {
-      "type": "string",
+    "Amount": {
+      "type": "integer",
       "required": true,
-      "unique": true
+      "default": 1,
+      "min": 0
     },
-    "Email": {
-      "type": "email"
-    },
-    "Paid": {
-      "type": "boolean"
-    },
-    "Items": {
-      "type": "json"
-    },
-    "Price": {
-      "type": "decimal"
+    "Product": {
+      "model": "product"
     }
   }
 }
