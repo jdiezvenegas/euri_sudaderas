@@ -31,12 +31,12 @@ function GDPR(props) {
               <li>
                 El tratamiento de tus datos es necesario para la ejecución del
                 contrato de compraventa o de prestación de servicios que nos
-                vincule contigo
+                vincule contigo.
               </li>
               <li>
                 Es posible que algunos tratamientos de datos asociados al
                 proceso de compra se activen únicamente porque tú lo solicites o
-                nos autorices
+                nos autorices.
               </li>
               <li>
                 Consideramos que tenemos un interés legítimo para realizar las

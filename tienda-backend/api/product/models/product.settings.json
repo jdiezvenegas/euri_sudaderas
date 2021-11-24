@@ -54,6 +54,14 @@
     "PriceID": {
       "type": "string",
       "required": true
+    },
+    "External": {
+      "type": "string"
+    },
+    "Available": {
+      "type": "boolean",
+      "default": true,
+      "required": true
     }
   }
 }

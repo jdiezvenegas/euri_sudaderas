@@ -10,7 +10,6 @@ COPY . .
 # install app dependencies
 RUN yarn install
 RUN yarn run build
-RUN yarn run start
 
 # start
 CMD ["yarn", "run",  "start"]

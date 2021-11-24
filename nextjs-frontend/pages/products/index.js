@@ -11,6 +11,8 @@ const GET_PRODUCTS = gql`
       Image {
         url
       }
+      External
+      Available
     }
   }
 `;
@@ -20,11 +22,16 @@ function ProductView() {
   if (loading) {
     return <Loading />;
   }
+
+  console.log(error);
+  console.log(data);
   return (
     <div className="product-view-container">
-      {data?.products.map(product => (
-        <ProductItem key={product.id} product={product} />
-      ))}
+      {[...data?.products]
+        .sort((a, b) => (b.External ? -10 : 1))
+        .map(product => (
+          <ProductItem key={product.id} product={product} />
+        ))}
     </div>
   );
 }
