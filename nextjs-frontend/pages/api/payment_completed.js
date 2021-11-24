@@ -93,8 +93,8 @@ export default async function handler(req, res) {
       // Store order in our backend (Strapi)
       storeOrder(session, jwt);
 
-      return res.status(200);
-    } else return res.status(200);
+      return res.json({ received: true });
+    } else return res.json({ received: true });
   } else {
     res.setHeader("Allow", "POST");
     return res.status(405).end("Method Not Allowed");
