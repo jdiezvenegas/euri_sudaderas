@@ -18,9 +18,6 @@
       "default": 1,
       "min": 0
     },
-    "Product": {
-      "model": "product"
-    },
     "StripeID": {
       "type": "string",
       "required": true,
