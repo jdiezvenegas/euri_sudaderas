@@ -2,24 +2,24 @@ import { useState } from "react";
 import { OrderRow, GDPR } from "../components";
 import AppContext from "/context/AppContext";
 import { useContext } from "react";
-import { loadStripe } from "@stripe/stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import { Loading } from "../components";
 // import { getCartPrice } from "../utils";
 
 function Cart(props) {
   const { cart } = useContext(AppContext);
-  const [paying, setPaying] = useState(false)
-  const [paymentError, setPaymentError] = useState(false)
+  const [paying, setPaying] = useState(false);
+  const [paymentError, setPaymentError] = useState(false);
   const [read, setRead] = useState(false);
   const [accepted, setAccepted] = useState(false);
 
-  const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-  );
+  // const stripePromise = loadStripe(
+  //   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  // );
 
   const handleSubmit = async event => {
     event.preventDefault();
-    
+
     if (!read) {
       alert("Por favor lee el documento de protección de datos.");
       return;
@@ -30,8 +30,8 @@ function Cart(props) {
       }
     }
     if (read && accepted) {
-      setPaying(true)
-      setPaymentError(false)
+      setPaying(true);
+      setPaymentError(false);
 
       const url = "/api/checkout_sessions";
       const res = await fetch(url, {
@@ -45,8 +45,8 @@ function Cart(props) {
         const body = await res.json();
         body.url ? (window.location.href = body.url) : console.log(body);
       } else {
-        setPaying(false)
-        setPaymentError(true)
+        setPaying(false);
+        setPaymentError(true);
       }
     }
   };
@@ -70,17 +70,16 @@ function Cart(props) {
         setAccepted={setAccepted}
         accepted={accepted}
       />
-      {
-        paying ? (<Loading />) : (
-          <form onSubmit={handleSubmit}>
-            <button type="submit" className="pay-button">
-              Pagar
-            </button>
-          </form>
-        )
-      }
-      { paymentError && (<p>No se pudo procesar el pago</p>) }
-      
+      {paying ? (
+        <Loading />
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <button type="submit" className="pay-button">
+            Pagar
+          </button>
+        </form>
+      )}
+      {paymentError && <p>No se pudo procesar el pago</p>}
     </div>
   );
 }

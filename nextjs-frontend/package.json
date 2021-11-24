@@ -10,7 +10,6 @@
   "dependencies": {
     "@apollo/client": "^3.4.17",
     "@apollo/react-hooks": "^4.0.0",
-    "@stripe/stripe-js": "^1.21.1",
     "apollo-boost": "^0.4.9",
     "cookie": "^0.4.1",
     "graphql": "^16.0.1",
@@ -21,6 +20,7 @@
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
     "sass": "^1.43.4",
+    "sharp": "^0.29.3",
     "stripe": "^8.188.0"
   }
 }
