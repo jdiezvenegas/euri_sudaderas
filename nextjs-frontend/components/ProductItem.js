@@ -44,7 +44,7 @@ function ProductItem(props) {
       />
       <div className="product-info">
         <p className="product-name">{name}</p>
-        <p>Disponibles el 26/11</p>
+        <p className="not-available">Próximamente</p>
       </div>
     </div>
   );
