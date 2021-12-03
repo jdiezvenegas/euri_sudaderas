@@ -17,7 +17,10 @@ function ProductItem(props) {
       <Link href={external ? external : `/products/${id}`}>
         <div className="product-item-container">
           <Image
-            src={process.env.NEXT_PUBLIC_STRAPI_URL + image[0].url}
+            src={
+              process.env.NEXT_PUBLIC_STRAPI_URL +
+              image[Math.floor(Math.random() * image.length)].url
+            }
             className="product-image"
             height={200}
             width={200}
@@ -35,7 +38,10 @@ function ProductItem(props) {
   return (
     <div className="product-item-container">
       <Image
-        src={process.env.NEXT_PUBLIC_STRAPI_URL + image[0].url}
+        src={
+          process.env.NEXT_PUBLIC_STRAPI_URL +
+          image[Math.floor(Math.random() * image.length)].url
+        }
         className="product-image"
         height={200}
         width={200}
