@@ -22,7 +22,7 @@ export default function MyApp({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
-    console.log(cart);
+    // console.log(cart);
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 

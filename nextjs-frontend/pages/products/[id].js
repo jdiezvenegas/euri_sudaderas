@@ -87,7 +87,7 @@ function ProductView(props) {
     // Defaul Values
     !selectedColor && setSelectedColor(data?.product?.colors[0]);
     !selectedDesign && setSelectedDesign(data?.product?.designs[0]);
-    console.log(correspondingImages);
+    // console.log(correspondingImages);
 
     return (
       <div className="product-detail-container">

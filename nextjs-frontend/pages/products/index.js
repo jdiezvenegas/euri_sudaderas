@@ -23,8 +23,8 @@ function ProductView() {
     return <Loading />;
   }
 
-  console.log(error);
-  console.log(data);
+  // console.log(error);
+  // console.log(data);
   return (
     <div className="product-view-container">
       {[...data?.products]

@@ -17,12 +17,41 @@ services:
       # - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=<example>
       - TZ=Europe/Madrid
 
-  shop-backend:
-    build: ./tienda-backend
-    image: shop-backend
-    container_name: shop-backend
-    restart: unless-stopped
-    ports:
-      - 8007:1337
+  shop-strapi:
+    container_name: shop-strapi
+    image: public.ecr.aws/knowre/strapi:3.1.4-node12
     environment:
-      - TZ=Europe/Madrid
+      NODE_ENV: production
+      DATABASE_CLIENT: postgres
+      DATABASE_NAME: strapi
+      DATABASE_HOST: shop-postgres
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: strapi
+      DATABASE_PASSWORD: $POSTGRES_PASSWORD
+    volumes:
+      - $STRAPI_DATA:/srv/app
+    ports:
+      - "8007:1337"
+    depends_on:
+      - shop-postgres
+    command: "strapi start"
+
+  shop-postgres:
+    container_name: shop-postgres
+    user: "1001:0"
+    image: public.ecr.aws/bitnami/postgresql:latest
+    environment:
+      POSTGRES_DB: strapi
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    volumes:
+      - $SHOP_POSTGRES_DATA:/bitnami/postgresql
+        # shop-backend:
+        # build: ./tienda-backend
+        # image: shop-backend
+        # container_name: shop-backend
+        # restart: unless-stopped
+        # ports:
+        # - 8007:1337
+        # environment:
+        # - TZ=Europe/Madrid

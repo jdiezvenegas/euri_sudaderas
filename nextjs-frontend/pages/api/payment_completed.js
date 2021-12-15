@@ -48,7 +48,7 @@ const authStrapi = async () => {
 };
 
 const storeOrder = async (session, jwt) => {
-  console.log(session.metadata.items);
+  // console.log(session.metadata.items);
   const order = await fetch(strapi_url + "/graphql", {
     method: "POST",
     headers: {
@@ -68,7 +68,7 @@ const storeOrder = async (session, jwt) => {
     })
   });
 
-  console.log(order);
+  // console.log(order);
 };
 
 export default async function handler(req, res) {
@@ -88,7 +88,7 @@ export default async function handler(req, res) {
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
       const { jwt } = await authStrapi();
-      console.log("JWT: " + jwt);
+      // console.log("JWT: " + jwt);
 
       // Store order in our backend (Strapi)
       storeOrder(session, jwt);

@@ -39,11 +39,11 @@ function Cart(props) {
         body: JSON.stringify(cart),
         method: "POST"
       });
-      console.log(res);
+      // console.log(res);
 
       if (res.status === 200) {
         const body = await res.json();
-        body.url ? (window.location.href = body.url) : console.log(body);
+        body.url ? (window.location.href = body.url) : null;
       } else {
         setPaying(false);
         setPaymentError(true);

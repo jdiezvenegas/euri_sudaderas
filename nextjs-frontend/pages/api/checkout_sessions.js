@@ -12,7 +12,7 @@ const query = `query GetProduct($id: ID!) {
 //     input: { data: {StripeID:$stripe, Email:$email, Paid:$paid, Items:$items, Price:$price} }
 //   ) {
 //     order {
-// 			id      
+// 			id
 //     }
 //   }
 // }`;
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
           };
         })
       );
-      console.log(line_items);
+      // console.log(line_items);
 
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create({
