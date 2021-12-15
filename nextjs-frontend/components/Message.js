@@ -8,7 +8,7 @@ function Message(props) {
     <div className="message-container">
       <div className="message">
         <p>
-          Extendemos la fecha el primero pedido al 19 de diciembre. Realiza tu
+          Extendemos la fecha del primero pedido al 19 de diciembre. Realiza tu
           pedido antes del 19 para recibirlo cuanto antes.
         </p>
         <p>
