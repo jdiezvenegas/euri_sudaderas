@@ -8,6 +8,7 @@ function ProductItem(props) {
     Image: image,
     Price: price,
     Description: description,
+    colors,
     External: external,
     Available: available
   } = props.product;
@@ -30,6 +31,15 @@ function ProductItem(props) {
           <div className="product-info">
             <p className="product-name">{name}</p>
             <p>{price}€</p>
+            <div className="product-colors-container">
+            {colors?.map(color => (
+              <span
+                key={color.id}
+                className='color-circle'
+                style={{ background: color.Hex }}
+              ></span>
+            ))}
+          </div>
           </div>
         </div>
       </Link>

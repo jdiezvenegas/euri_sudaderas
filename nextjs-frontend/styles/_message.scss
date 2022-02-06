@@ -1,27 +1,27 @@
 .message-container {
-    margin: 0;
-    @include flexCenter(column);
-    justify-content: space-between;
-    align-items: center;
+  margin: 0;
+  @include flexCenter(column);
+  justify-content: space-between;
+  align-items: center;
 
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 
-    .message {
-        background-color: $warning;
-        border: 2px solid $black;
-        border-radius: 10px;
-        padding: 20px;
-        padding-left: 40px;
-        padding-right: 40px;
-        width: 600px;
-        vertical-align: middle;
-        box-shadow: 5px 6px 22px -9px rgba(0, 0, 0, 0.5);
-        @media only screen and (max-width: 860px) {
-            padding: 10px;
-            width: 85%;
-        }
-
-        // Shadow
-        box-shadow: 5px 6px 22px -9px rgba(0, 0, 0, 0.5);
+  .message {
+    background-color: $warning;
+    border: 2px solid $black;
+    border-radius: 10px;
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    max-width: 650px;
+    vertical-align: middle;
+    box-shadow: 5px 6px 22px -9px rgba(0, 0, 0, 0.5);
+    @media only screen and (max-width: 860px) {
+      padding: 10px;
+      width: 85%;
     }
+
+    // Shadow
+    box-shadow: 5px 6px 22px -9px rgba(0, 0, 0, 0.5);
+  }
 }

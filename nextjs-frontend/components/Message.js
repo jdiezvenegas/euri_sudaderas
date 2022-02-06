@@ -8,12 +8,10 @@ function Message(props) {
     <div className="message-container">
       <div className="message">
         <p>
-          Extendemos la fecha del primero pedido al 19 de diciembre. Realiza tu
-          pedido antes del 19 para recibirlo cuanto antes.
+          ¡El primer pedido está de camino! Recibirás un correo cuando haya llegado.
         </p>
         <p>
-          Haz click en el modelo para ver todos los colores disponibles. ¡Hay
-          más de 25!
+          En <b>marzo</b> haremos el <b>segundo y último</b> pedido del curso. ¡Aprovecha y pide la tuya!
         </p>
       </div>
     </div>

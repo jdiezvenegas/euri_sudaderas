@@ -11,6 +11,14 @@ const GET_PRODUCTS = gql`
       Image {
         url
       }
+      colors {
+        id
+        Name
+        Hex
+        Images {
+          url
+        }
+      }
       External
       Available
     }
