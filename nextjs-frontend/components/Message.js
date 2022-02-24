@@ -13,6 +13,9 @@ function Message(props) {
         <p>
           En <b>marzo</b> haremos el <b>segundo y último</b> pedido del curso. ¡Aprovecha y pide la tuya!
         </p>
+        <p>
+          Para cualquier consulta, hablar a Pedro: 722 51 56 06
+        </p>
       </div>
     </div>
   );
