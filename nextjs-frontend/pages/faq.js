@@ -11,7 +11,7 @@ function FAQ() {
 
         <h2>¿Puedo cancelar mi pedido?</h2>
         <p>
-          Puede que aún estés a tiempo. Contacta con 722 51 56 06 para estudiar
+          Puede que aún estés a tiempo. Contacta con 608 66 14 13 para estudiar
           tu caso particular.
         </p>
 
