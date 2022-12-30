@@ -8,10 +8,10 @@ function Message(props) {
     <div className="message-container">
       <div className="message">
         <p>
-          ¡El primer pedido está de camino! Recibirás un correo cuando haya llegado.
+          El 2 de enero haremos el pedido. ¡Aprovecha y pide la tuya!
         </p>
         <p>
-          En <b>marzo</b> haremos el <b>segundo y último</b> pedido del curso. ¡Aprovecha y pide la tuya!
+          ¿Alguna consulta? Escríbenos a 608 66 14 13 (Jorge).
         </p>
       </div>
     </div>
