@@ -8,7 +8,7 @@ function Message(props) {
     <div className="message-container">
       <div className="message">
         <p>
-          El 9 de enero a las 23:59 haremos el pedido. ¡Aprovecha y pide la tuya!
+          En marzo haremos el segundo pedido. ¡Aprovecha y pide la tuya!
         </p>
         <p>
           ¿Alguna consulta? Escríbenos a 608 66 14 13 (Jorge).
